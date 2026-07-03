@@ -4,6 +4,8 @@
 子数组是数组中元素的连续非空序列。
 """
 
+
+# 关键思路：前缀和计数
 num_count, sum_target = map(int, input().split())
 nums = list(map(int, input().split()))
 
