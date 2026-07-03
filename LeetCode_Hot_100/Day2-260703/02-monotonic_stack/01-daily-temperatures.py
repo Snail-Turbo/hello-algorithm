@@ -4,7 +4,7 @@
 
 # 然后将当前索引入栈。对于每个索引，如果栈不为空，则说明找到了一个更高的温度，计算天数差并存入答案数组中。
 class Solution:
-    def daily_temperatures(self, temperatures:list)->list:
+    def dailyTemperatures(self, temperatures:list)->list:
         temperatures_length = len(temperatures)
         stack = []
         answer = [0] * temperatures_length
@@ -22,6 +22,10 @@ class Solution:
     
 
 if __name__ == "__main__":
-    temperatures = [73, 74, 75, 71, 69, 72, 76, 73]
+    line = input()
+
+    intput_list = list(map(int, line.split()[-1][1:-1].split(',')))
     so = Solution()
-    print(so.daily_temperatures(temperatures))
+    result_list = so.dailyTemperatures(intput_list)
+
+    print(f"[{','.join(map(str, result_list))}]")
