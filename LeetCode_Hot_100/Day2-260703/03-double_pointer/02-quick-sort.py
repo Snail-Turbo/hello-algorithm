@@ -1,13 +1,16 @@
 """
 quick sort
 """
-
+import random
 
 class Solution:
     def quick_sort(self, nums:list[int], left_idx:int, right_idx:int)-> None:
         if left_idx >= right_idx:
             return
         
+        pivot_idx = random.randint(left_idx, right_idx)
+        nums[pivot_idx], nums[right_idx] = nums[right_idx], nums[pivot_idx]
+
         x = nums[right_idx]
 
         i = left_idx
