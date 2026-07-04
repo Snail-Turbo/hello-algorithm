@@ -14,25 +14,33 @@
 
 # 思路：取k个元素，意味着剩下的是一个连续的子数组，长度为n-k
 # 找到长度为n-k的连续子数组中元素和最小的，用总和减去它就是答案
+
+# 两个指针同向移动，维护一个连续区间，每次只变一头，另一头不用回头。
 class Solution:
     def maxScore(self, cardPoints: list[int], k: int) -> int:
         card_count = len(cardPoints)
         total_sum = sum(cardPoints)
 
-        if card_count == k:
+        mid_length = card_count - k
+
+        if mid_length == 0:
             return total_sum
-
-        sum_tmp = sum(cardPoints[:card_count-k])
-        min_sum = sum_tmp
-
-        for i in range(card_count-k, card_count):
-            sum_tmp += cardPoints[i]
-            sum_tmp -= cardPoints[i-card_count+k]
-
-            min_sum = min(min_sum, sum_tmp) # 差值应该是最小，因为要取 另外一堆
         
-        return total_sum - min_sum
-        
+        mid_sum = sum(cardPoints[:mid_length])
+        min_mid_sum = mid_sum
+
+
+        for j in range(mid_length, card_count):
+            mid_sum += cardPoints[j]
+            mid_sum -= cardPoints[j-mid_length]
+
+            min_mid_sum = min(min_mid_sum, mid_sum) # 差值应该是最小，因为要取 另外一堆
+
+        return total_sum - min_mid_sum
+
+
+
+
 card_points = [1,2,3,4,5,6,1]
 k_input = 3
 
