@@ -11,7 +11,7 @@ def spiral_order(matrix: list[list[int]]) -> list[int]:
 
     top, bottom, left, right = 0, m - 1, 0, n - 1
 
-    while top <= bottom and left <= right:
+    while top <= bottom and left <= right: # <= 是为了处理只有一行或一列的情况
         for j in range(left, right + 1):
             result.append(matrix[top][j])
         top += 1
