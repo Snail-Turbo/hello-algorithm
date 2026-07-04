@@ -8,6 +8,7 @@ class Solution:
         if left_idx >= right_idx:
             return
         
+        # 关键：随机选择一个元素作为基准，避免最坏情况的出现
         pivot_idx = random.randint(left_idx, right_idx)
         nums[pivot_idx], nums[right_idx] = nums[right_idx], nums[pivot_idx]
 
