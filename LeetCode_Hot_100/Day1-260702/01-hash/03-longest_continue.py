@@ -8,18 +8,18 @@ def longest_consecutive_sequence(nums):
     if not nums:
         return 0
     
-    num_set = set(nums)
+    num_set = set(nums) # 核心1：使用哈希集合存储数组中的所有元素，以便在O(1)时间内检查某个元素是否存在
 
     longest_streak = 0
 
     for num in num_set:
-        if num - 1 in num_set:
+        if num - 1 in num_set: # 核心2： 如果当前数字的前一个数字存在于集合中，则跳过该数字，因为它不是连续序列的起点
             continue
         
         current_num = num
         current_streak = 1
 
-        while current_num + 1 in num_set:
+        while current_num + 1 in num_set: # 核心3： 如果当前数字的下一个数字存在于集合中，则继续向前查找连续序列
             current_num += 1
             current_streak += 1
         

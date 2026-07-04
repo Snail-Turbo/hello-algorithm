@@ -12,7 +12,7 @@ def two_sum(num_count, nums, target):
     for i, num in enumerate(nums):
         diff = target - num
 
-        if diff in num_to_index:
+        if diff in num_to_index: # 核心思路：使用哈希表存储已经遍历过的数字及其索引，检查当前数字的差值是否存在于哈希表中
             return [num_to_index[diff], i]
         
         num_to_index[num] = i

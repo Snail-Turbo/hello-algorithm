@@ -8,7 +8,7 @@ def group_anagrams(strs):
     set_key_dict = {}
     
     for s in strs:
-        key = ''.join(sorted(s))
+        key = ''.join(sorted(s)) # 核心思路：将每个字符串排序后作为字典的键，所有排序后相同的字符串就是异位词
         set_key_dict.setdefault(key, []).append(s)
     
     return list(set_key_dict.values())
@@ -18,6 +18,8 @@ def group_anagrams_upgrade(strs):
     mp = {}
 
     for s in strs:
+
+        # 核心思路：使用字符计数作为字典的键，所有字符计数相同的字符串就是异位词
         counts = [0] * 26
         for ch in s:
             # 关键点：ord() 函数返回字符的 Unicode 码点，ord('a') 返回 97，ord('b') 返回 98，以此类推。

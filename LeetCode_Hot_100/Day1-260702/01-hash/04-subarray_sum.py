@@ -9,18 +9,22 @@
 num_count, sum_target = map(int, input().split())
 nums = list(map(int, input().split()))
 
-prefix_sum_count = {0: 1}
 
-current_sum = 0
-count = 0
+class Solution:
+    def subarray_sum(self, nums: list[int], k: int) -> int:
+        prefix_sum_count = {0: 1}
 
-for num in nums:
-    current_sum += num
-    diff = current_sum - sum_target
+        current_sum = 0
+        count = 0
 
-    if diff in prefix_sum_count:
-        count += prefix_sum_count[diff]
-    
-    prefix_sum_count[current_sum] = prefix_sum_count.get(current_sum, 0) + 1
+        for num in nums:
+            current_sum += num
+            diff = current_sum - k # 求的是 和为k 的子数组，所以当前前缀和 = diff + k ，diff = current_sum - k 若存在 即 有 到当前的一段 和为k
 
-print(count)
+            if diff in prefix_sum_count:
+                count += prefix_sum_count[diff] # diff = current_sum - k 若存在 x个 即 有x个 到当前的一段 和为k
+
+            # 【核心】 记录当前前缀和的出现次数，方便后续计算；且位置不能在if diff之前，因为需要先更新当前有几个到现在可以的，再记录上当前以给后续可记录当前
+            prefix_sum_count[current_sum] = prefix_sum_count.get(current_sum, 0) + 1
+
+        return count
