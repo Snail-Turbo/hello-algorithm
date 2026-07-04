@@ -5,6 +5,7 @@
 count = int(input())
 intervals = [list(map(int, input().split())) for _ in range(count)]
 
+# 关键思路：按区间起始位置排序，然后遍历合并
 intervals.sort(key=lambda x: x[0])
 
 merged = []
