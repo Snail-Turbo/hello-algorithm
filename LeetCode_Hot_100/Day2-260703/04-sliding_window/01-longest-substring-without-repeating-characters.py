@@ -1,3 +1,11 @@
+"""
+给定一个字符串s，请你找出其中不含有重复字符的 最长子串 的长度
+"""
+
+
+# 核心思路：如果从 A 到 C 都没有重复，那么从 B 到 C 绝对不可能有重复
+# 当我把起点（左手）往右挪一格时，我之前的终点（右手）不需要退回来
+
 class Solution:
     def length_of_longest_substring(self, string:str) -> int:
         
