@@ -57,7 +57,7 @@ class Solution:
         if not stack:
             return '/'
         
-        return '/' + '/'.join(stack)
+        return '/' + '/'.join(stack) # 记得 '/' 开头
 
 
 if __name__ == "__main__":
