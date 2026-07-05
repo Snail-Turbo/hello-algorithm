@@ -62,8 +62,31 @@ class Solution:
 
         return results
 
+    def combinationSum_ols(self, candidates: list[int], target: int) -> list[list[int]]:
+        # 【完全背包思想】：
+        # 一次性穷举它所有可能的使用次数，然后坚决走向下一个数字
+        # 坚决的 index 走到 len(candidates)，即使已经 5个2确认后面都不选了
+
+        ans = []
+
+        def dfs(index, total, candidates, curr):
+            if index == len(candidates):
+                if total == target:  # 如果当前总和等于目标值，添加当前组合到结果列表
+                    ans.append(curr)
+                return
+
+            rest = target - total  # 计算剩余的目标值
+            up = rest // candidates[index]  # 一次性穷举它所有可能的使用次数，然后坚决走向下一个数字
+
+            for i in range(up + 1):  # 从 0 到 up 次使用当前候选数
+                dfs(index + 1, total + i * candidates[index], candidates, curr + [candidates[index]] * i)
+
+        dfs(0, 0, candidates, [])  # 从索引 0 开始，初始总和为 0，当前组合为空
+        return ans
+
 
 candidates = [2, 3, 6, 7]
-target = 7
+target = 12
 so = Solution()
 print(so.combinationSum(candidates, target))
+print(so.combinationSum_ols(candidates, target))
