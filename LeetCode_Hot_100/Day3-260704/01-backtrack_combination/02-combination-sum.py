@@ -58,7 +58,7 @@ class Solution:
 
                 path.pop()
 
-        backtrack(0, 0)
+        backtrack(0, 0)  # 【永远别忘了开始！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！】
 
         return results
 
@@ -81,12 +81,30 @@ class Solution:
             for i in range(up + 1):  # 从 0 到 up 次使用当前候选数
                 dfs(index + 1, total + i * candidates[index], candidates, curr + [candidates[index]] * i)
 
-        dfs(0, 0, candidates, [])  # 从索引 0 开始，初始总和为 0，当前组合为空
+        dfs(0, 0, candidates, [])  # 从索引 0 开始，初始总和为 0，当前组合为空 # 【永远别忘了开始！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！】
         return ans
+
+    def combinationSum_if(self, candidates: list[int], target: int) -> list[list[int]]:
+        result = []
+
+        def dfs(index, current_sum, path):
+            if index == len(candidates):  # 终止条件就终止，他也是满足条件之一
+                if current_sum == target:  # 满足条件另一
+                    result.append(path[:])
+                return
+
+            dfs(index + 1, current_sum, path)
+
+            if current_sum + candidates[index] <= target:
+                dfs(index, current_sum + candidates[index], path + [candidates[index]])
+
+        dfs(0, 0, [])  # 【永远别忘了开始！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！】
+
+        return result
 
 
 candidates = [2, 3, 6, 7]
 target = 12
 so = Solution()
 print(so.combinationSum(candidates, target))
-print(so.combinationSum_ols(candidates, target))
+print(so.combinationSum_if(candidates, target))
