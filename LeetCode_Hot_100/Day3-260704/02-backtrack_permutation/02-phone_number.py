@@ -32,6 +32,7 @@ digits[i] 是范围 ['2', '9'] 的一个数字。
 
 class Solution:
     def letterCombinations(self, digits: str) -> list[str]:
+        # 这个天然自带 不重复，不需要used
         phone_map = {
             '2': ['a', 'b', 'c'],
             '3': ['d', 'e', 'f'],

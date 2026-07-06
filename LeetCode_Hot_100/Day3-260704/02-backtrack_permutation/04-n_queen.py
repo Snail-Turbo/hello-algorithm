@@ -31,8 +31,8 @@ class Solution:
         path = [["."] * n for _ in range(n)]
 
         col_used = set()
-        main_diag_used = set()
-        anti_diag_used = set()
+        main_diag_used = set()  # y-x ===
+        anti_diag_used = set()  # y+x ===
 
         def backtrack(current_y):
 

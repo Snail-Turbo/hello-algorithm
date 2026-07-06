@@ -37,7 +37,7 @@ class Solution:
 
             return False
 
-        for y in range(y_len):
+        for y in range(y_len):  # 这个题的核心是：每个点都可能是起点
             for x in range(x_len):
 
                 if board[y][x] == word[0]:
@@ -62,7 +62,7 @@ class Solution:
         direction = [[0, -1], [0, 1], [-1, 0], [1, 0]]
 
         def backtrack(y, x, index) -> bool:
-            if index == n_target:
+            if index == n_target:  # 升级点，前面看 board[y][x] == word[index] 才继续，然后这里能走到 len(word)-1 +1 则说明是word
                 return True
 
             if x < 0 or x > x_len-1 or y < 0 or y > y_len - 1 or used[y][x] or board[y][x] != word[index]:

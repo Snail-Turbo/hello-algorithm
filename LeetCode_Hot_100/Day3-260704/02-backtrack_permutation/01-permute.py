@@ -44,12 +44,12 @@ class Solution:
                 results.append(path[:])
                 return
 
-            for i in range(n):
-                if used[i] == 1:
+            for i in range(n):  # 和 01-combination 的区别，就是每个地方都遍历所有
+                if used[i] == 1:  # 然后used 不选
                     continue
 
                 path.append(nums[i])
-                used[i] = 1
+                used[i] = 1  # 选的同时记得 used
 
                 backtrack()
 

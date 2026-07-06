@@ -53,7 +53,7 @@ class Solution:
                 return
 
             for i in range(current_idx, len(candidates)):
-                path.append(candidates[i])
+                path.append(candidates[i])  # append 和 pop 一定成对出现
                 backtrack(i, current_sum + candidates[i])  # 无限制重复被选取
 
                 path.pop()
@@ -85,6 +85,8 @@ class Solution:
         return ans
 
     def combinationSum_if(self, candidates: list[int], target: int) -> list[list[int]]:
+
+        # 关键思路：能选就接着选
         result = []
 
         def dfs(index, current_sum, path):
