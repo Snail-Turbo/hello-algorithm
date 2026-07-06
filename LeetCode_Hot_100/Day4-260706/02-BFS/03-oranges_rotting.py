@@ -25,7 +25,7 @@ class Solution:
 
                 # 新的得符合数组不超限；
                 # 新的需要没被提前 标记腐化过
-                # 新的需要 是 需要被腐化的
+                # 新的需要 是 需要被腐化的      【重点，不能忘记】
                 if new_y not in range(len_y) or new_x not in range(len_x) or dist[new_y][new_x] != -1 or grid[new_y][new_x] != 1:
                     continue
 
