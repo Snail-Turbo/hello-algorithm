@@ -17,19 +17,19 @@ class Solution:
         n_target = len(word)
         direction = [[0, -1], [0, 1], [-1, 0], [1, 0]]
 
-        def backtrack(x, y):
+        def backtrack(y, x):
             if len(path) == n_target:
                 return "".join(path) == word
 
             for diff_y, diff_x in direction:
                 new_y, new_x = y + diff_y, x + diff_x
-                if new_y not in range(y_len) or new_x not in range(x_len) or used[new_y][new_x]:
+                if new_y not in range(y_len) or new_x not in range(x_len) or used[new_y][new_x] or board[new_y][new_x] not in word:
                     continue
 
                 path.append(board[new_y][new_x])
                 used[new_y][new_x] = 1
 
-                if backtrack(new_x, new_y):
+                if backtrack(new_y, new_x):
                     return True
 
                 path.pop()
@@ -39,10 +39,11 @@ class Solution:
 
         for y in range(y_len):
             for x in range(x_len):
+
                 if board[y][x] == word[0]:
                     path.append(board[y][x])
                     used[y][x] = 1
-                    if backtrack(x, y):
+                    if backtrack(y, x):
                         return True
                     path.pop()
                     used[y][x] = 0
