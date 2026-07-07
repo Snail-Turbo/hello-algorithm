@@ -44,6 +44,22 @@ class Solution:
 
         return dp[-1]
 
+    def numSquares_2(self, n: int) -> int:
+        dp = [n] * (n+1)
+        dp[0] = 0
+
+        for i in range(1, n+1):
+            j = 1
+            while j**2 <= i:
+                dp[i] = min(dp[i], dp[i-j**2] + 1)
+                # 最后一个元素一定是：
+                # 1个完全平方数 + (n-square)
+                # 次数=
+                # 1 + dp[n-square]
+                j += 1
+
+        return dp[-1]
+
 
 n = 12
 so = Solution()
