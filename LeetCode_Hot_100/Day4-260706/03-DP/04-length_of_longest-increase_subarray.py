@@ -22,9 +22,7 @@ class Solution:
         # nums = [0, 1, 0, 3, 2, 3, -INF]
 
         for i in range(len(dp)-3, -1, -1):
-            current_choice = [dp[j]+1 for j in range(i+1, len(dp)-1) if nums[j] > nums[i]]
-            current_choice.append(1)
-            dp[i] = max(current_choice)
+            dp[i] = max([dp[j]+1 for j in range(i+1, len(dp)-1) if nums[j] > nums[i]], 1)
 
             if max_length < dp[i]:
                 max_length = dp[i]
@@ -38,6 +36,25 @@ class Solution:
         # dp[6] = 1
         # dp[5] = 2
         # dp[4] = 3
+
+        return max_length
+
+    def lengthOfLIS_2(self, nums: list[int]) -> int:
+        n = len(nums)
+        if not nums or n == 0:
+            return 0
+
+        dp = [1] * n  # 优化初始化
+
+        max_length = dp[n-1]  # 优化初始化
+
+        for i in range(n-2, -1, -1):
+            for j in range(i+1, len(dp)):  # 减少多次list创建
+                if nums[j] > nums[i] and dp[j] + 1 > dp[i]:
+                    dp[i] = dp[j]+1
+
+            if max_length < dp[i]:
+                max_length = dp[i]
 
         return max_length
 
