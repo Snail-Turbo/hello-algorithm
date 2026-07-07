@@ -58,6 +58,20 @@ class Solution:
 
         return max_length
 
+    def lengthOfLIS_3(self, nums: list[int]) -> int:
+        n = len(nums)
+
+        dp = [1] * n
+
+        for i in range(n):  # 先遍历 end_index
+            for j in range(i):  # 然后遍历  j in range(end_index)
+                if nums[j] < nums[i] and dp[j]+1 > dp[i]:
+                    dp[i] = dp[j]+1
+
+        ans = max(dp)
+
+        return ans
+
 
 nums = [10, 9, 2, 5, 3, 7, 101, 18]
 nums2 = [0, 1, 0, 3, 2, 3]
