@@ -47,6 +47,29 @@ class Solution:
 
         return s[max_start-1:max_end]
 
+    def longestPalindrome_2(self, s: str) -> str:
+        len_s = len(s)
+
+        dp = [[False] * (len_s+1) for _ in range(len_s+1)]
+
+        max_length = 0  # 不额外循环一次
+        max_start, max_end = 0, 0
+        for i in range(len_s, 0, -1):
+            for j in range(i, len_s+1):
+                if j == i:
+                    dp[i][j] = True
+
+                elif s[i-1] == s[j-1]:  # 相同if先判断，剪枝
+                    dp[i][j] = True
+                    if j-i > 1:
+                        dp[i][j] = dp[i+1][j-1]
+
+                if dp[i][j] and j-i+1 > max_length:
+                    max_length = j-i+1
+                    max_start, max_end = i, j
+
+        return s[max_start-1:max_end]
+
 
 input_s_1 = "babad"
 input_s_2 = "aaaa"
