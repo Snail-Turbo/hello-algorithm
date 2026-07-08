@@ -37,7 +37,7 @@ class Solution:
         dp[0][0] = True
 
         for i in range(1, len(nums)+1):
-            for j in range(1, target+1):
+            for j in range(target+1):
                 current_num = nums[i-1]
                 dp[i][j] = dp[i-1][j] or (dp[i-1][j-current_num] if j-current_num >= 0 else False)
 
