@@ -38,3 +38,35 @@ class Solution:
         dfs(root)
 
         return count
+
+    def pathSum_prefix(self, root: TreeNode, targetSum: int) -> int:
+        # 前缀和计数
+        prefix_count = {}
+        prefix_count[0] = 1
+
+        count = 0
+
+        def dfs(node: TreeNode, current_sum):
+
+            nonlocal count
+
+            if node is None:
+                return
+
+            current_sum += node.val
+
+            # target前缀和 处理
+            current_diff = current_sum - targetSum
+            if current_diff in prefix_count:
+                count += prefix_count[current_diff]
+
+            prefix_count[current_sum] = prefix_count.get(current_sum, 0)+1
+
+            dfs(node.left, current_sum)
+            dfs(node.right, current_sum)
+
+            prefix_count[current_sum] -= 1  # 需要退出来，因为，只能算当前路径才对
+
+        dfs(root, 0)
+
+        return count
