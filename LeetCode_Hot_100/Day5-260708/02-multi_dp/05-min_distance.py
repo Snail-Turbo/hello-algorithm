@@ -37,9 +37,9 @@ class Solution:
         len_word1 = len(word1)
         len_word2 = len(word2)
 
-        max_impossible = max(len_word1, len_word2)
+        max_impossible = max(len_word1, len_word2) + 1
 
-        dp = [[max_impossible+1] * (len_word2+1) for _ in range(len_word1+1)]
+        dp = [[max_impossible] * (len_word2+1) for _ in range(len_word1+1)]
 
         for i in range(len_word1+1):
             dp[i][0] = i
@@ -53,9 +53,9 @@ class Solution:
                     dp[i][j] = dp[i-1][j-1]
                 else:
                     dp[i][j] = min(
-                        dp[i-1][j],     # 删除 word1[i-1]
-                        dp[i][j-1],     # 插入 word2[j-1]
-                        dp[i-1][j-1]    # 替换 word1[i-1] 为 word2[j-1]
+                        dp[i-1][j],
+                        dp[i][j-1],
+                        dp[i-1][j-1]
                     ) + 1
 
         return dp[-1][-1]
