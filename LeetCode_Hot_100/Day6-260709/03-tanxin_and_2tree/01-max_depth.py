@@ -19,7 +19,7 @@ class Solution:
             if node is None:
                 return
 
-            if node.left is None and node.right is None:
+            if node.left is None and node.right is None:  # 从上到下的记录终止条件，叶子节点无子节点
                 if depth > answer:
                     answer = depth
                 return
