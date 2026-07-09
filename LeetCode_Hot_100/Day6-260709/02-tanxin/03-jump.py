@@ -24,3 +24,21 @@ class Solution:
             ans += 1
 
         return ans
+
+    def jump2(self, nums: list[int]) -> int:
+        n = len(nums)
+
+        if n <= 1:
+            return 0
+
+        ans = 0
+        end = 0
+        right = 0
+        for i in range(n-1):
+            right = max(right, i+nums[i])
+
+            if i == end:
+                ans += 1
+                end = right
+
+        return ans
