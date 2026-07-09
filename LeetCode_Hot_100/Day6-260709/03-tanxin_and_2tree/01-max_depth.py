@@ -7,6 +7,7 @@ class TreeNode:
 
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
+        # 自顶向下，求每一个到 叶子 路径长度
         if root is None:
             return 0
 
