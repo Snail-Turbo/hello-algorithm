@@ -33,7 +33,10 @@ class Solution:
                 answer = current_max
 
             # 【易错】 返回给父节点的时候，只能传一条子链
-            return current_val + left_max if left_max > right_max else current_val + right_max
+            if left_max > right_max:
+                return current_val + left_max
+
+            return current_val + right_max
 
         dfs(root)
 
