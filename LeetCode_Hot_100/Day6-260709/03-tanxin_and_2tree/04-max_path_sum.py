@@ -5,6 +5,12 @@ class TreeNode:
         self.left = left
         self.right = right
 
+# 关键思路：
+# 1. 初始化 answer 为 min_impossible
+# 2. def dfs(node) -> int:
+# 3. nonlocal answer
+# 4.
+
 
 class Solution:
     def maxPathSum(self, root: TreeNode) -> int:
