@@ -35,7 +35,7 @@ class Solution:
         answer = 0
 
         for price in prices:
-            answer = max(answer, price - min_price)
+            answer = max(price - min_price, answer)
 
             min_price = min(price, min_price)
 
