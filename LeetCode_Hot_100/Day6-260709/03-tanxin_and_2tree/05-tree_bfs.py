@@ -12,25 +12,23 @@ class Solution:
             return []
 
         queue = [root]
-
-        res = []
+        result = []
 
         while queue:
-            val_arr = []
+            val_array = []
+            next_queue = []
 
-            q_next_level = []
+            for current_node in queue:
+                val_array.append(current_node.val)
 
-            for node in queue:
-                val_arr.append(node.val)
+                if current_node.left:
+                    next_queue.append(current_node.left)
 
-                if node.left:
-                    q_next_level.append(node.left)
+                if current_node.right:
+                    next_queue.append(current_node.right)
 
-                if node.right:
-                    q_next_level.append(node.right)
+            result.append(val_array)
 
-            res.append(val_arr)
+            queue = next_queue
 
-            queue = q_next_level  # 关键优化
-
-        return res
+        return result
