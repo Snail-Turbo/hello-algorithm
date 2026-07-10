@@ -65,7 +65,8 @@ class Solution:
             dfs(node.left, current_sum)
             dfs(node.right, current_sum)
 
-            prefix_count[current_sum] -= 1  # 需要退出来，因为，只能算当前路径才对
+            # 【】：需要退出来，因为，只能算当前路径才对
+            prefix_count[current_sum] -= 1
 
         dfs(root, 0)
 
