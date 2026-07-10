@@ -9,6 +9,32 @@ class TreeNode:
 class Solution:
     def rightSideView(self, root: TreeNode) -> list[int]:
 
+        if root is None:
+            return []
+
+        res = []
+        queue = [root]
+
+        while queue:
+            val_array = []
+            next_queue = []
+
+            for node in queue:
+                val_array.append(node.val)
+
+                if node.left:
+                    next_queue.append(node.left)
+                if node.right:
+                    next_queue.append(node.right)
+
+            queue = next_queue
+            if val_array:
+                res.append(val_array[-1])
+
+        return res
+
+    def rightSideView(self, root: TreeNode) -> list[int]:
+
         if not root:
             return []
 
