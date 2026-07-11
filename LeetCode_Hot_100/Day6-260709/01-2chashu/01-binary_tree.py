@@ -28,7 +28,7 @@ class Solution:
 
             current_node = queue.pop(0)
 
-            if index < len(tree_list) and tree_list[index] is not None:
+            if tree_list[index] is not None:
                 current_node.left = TreeNode(tree_list[index])
                 queue.append(current_node.left)
 
