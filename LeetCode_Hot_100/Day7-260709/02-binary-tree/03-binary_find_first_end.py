@@ -15,7 +15,7 @@ class Solution:
                 right = mid_index - 1
 
         if left < len(nums) and nums[left] == target:
-            return left
+            return left + 1
 
         return -1
 
@@ -34,6 +34,6 @@ class Solution:
                 right = mid_index - 1
 
         if right >= 0 and nums[right] == target:
-            return right
+            return right + 1
 
         return -1
