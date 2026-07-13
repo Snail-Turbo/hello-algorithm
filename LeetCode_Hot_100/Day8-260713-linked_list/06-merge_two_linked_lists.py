@@ -10,6 +10,7 @@ class Solution:
         current_A = list1
         current_B = list2
 
+        # 【重要】
         virtual_node = ListNode()  # 虚拟头节点，减少一些处理逻辑
 
         current_node = virtual_node
@@ -31,4 +32,5 @@ class Solution:
         else:
             current_node.next = current_B
 
+        # 【重要】 这里 return 是 virtual_node.next
         return virtual_node.next
