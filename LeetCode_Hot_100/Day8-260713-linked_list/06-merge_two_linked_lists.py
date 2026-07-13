@@ -11,23 +11,24 @@ class Solution:
         current_B = list2
 
         virtual_node = ListNode()  # 虚拟头节点，减少一些处理逻辑
-        result = virtual_node
+
+        current_node = virtual_node
 
         while current_A and current_B:
             if current_A.val < current_B.val:
-                result.next = current_A
+                current_node.next = current_A
 
                 current_A = current_A.next
             else:
-                result.next = current_B
+                current_node.next = current_B
 
                 current_B = current_B.next
 
-            result = result.next
+            current_node = current_node.next
 
         if current_A:
-            result.next = current_A
+            current_node.next = current_A
         else:
-            result.next = current_B
+            current_node.next = current_B
 
         return virtual_node.next
