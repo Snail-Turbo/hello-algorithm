@@ -10,14 +10,8 @@ class Solution:
         current_A = list1
         current_B = list2
 
-        result = None
-
-        if current_A.val < current_B.val:
-            result = current_A
-            current_A = current_A.next
-        else:
-            result = current_B
-            current_B = current_B.next
+        virtual_node = ListNode()  # 虚拟头节点，减少一些处理逻辑
+        result = virtual_node
 
         while current_A and current_B:
             if current_A.val < current_B.val:
@@ -36,4 +30,4 @@ class Solution:
         else:
             result.next = current_B
 
-        return result
+        return result.next
