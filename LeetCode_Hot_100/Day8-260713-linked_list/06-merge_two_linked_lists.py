@@ -30,4 +30,4 @@ class Solution:
         else:
             result.next = current_B
 
-        return result.next
+        return virtual_node.next
