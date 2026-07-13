@@ -39,3 +39,19 @@ class Solution:
             return result_head
 
         return head.next  # 如果没有 prefix_node，说明 要删除的就是第一个
+
+    def removeNthFromEn_two_pointers(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode()  # dummy 使得一定能够走 n+1
+        dummy.next = head
+        slow, fast = dummy, dummy
+
+        for _ in range(n + 1):  # n + 1 使得 fast 到 None 的时候，slow 在 previous
+            fast = fast.next
+
+        while fast:
+            slow = slow.next
+            fast = fast.next
+
+        slow.next = slow.next.next
+
+        return dummy.next
