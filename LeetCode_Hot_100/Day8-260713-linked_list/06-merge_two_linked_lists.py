@@ -27,6 +27,7 @@ class Solution:
 
             current_node = current_node.next
 
+        # 还剩的直接接上
         if current_A:
             current_node.next = current_A
         else:
