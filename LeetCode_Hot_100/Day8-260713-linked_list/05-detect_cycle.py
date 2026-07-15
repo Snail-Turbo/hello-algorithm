@@ -26,7 +26,8 @@ class Solution:
         return None
 
     def detectCycle_slow_fast_pointer(self, head: ListNode) -> ListNode:
-        # 2b - b = k * c
+        # 2b - b = k * c：
+        # 即 b = k*c
         # 多走的：b - a = k*c - a
 
         # 即：相遇点再走 a 步，就是走了 k 周
