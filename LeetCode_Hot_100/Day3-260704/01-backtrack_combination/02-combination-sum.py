@@ -90,7 +90,10 @@ class Solution:
         result = []
 
         def dfs(index, current_sum, path):
-            if index == len(candidates):  # 终止条件就终止，他也是满足条件之一
+            if index == len(candidates):  # 终止条件就终止，他也是满足条件之一：
+                # 这个 index == len(candidates) 意味着当前怎么了：
+                # 我的意思是，标志着到了什么状态，该判断sum：
+
                 if current_sum == target:  # 满足条件另一
                     result.append(path[:])
                 return

@@ -1,72 +1,58 @@
+"""
+152. 乘积最大子数组
+
+核心思路（一句话）：
+  同时维护以 i 结尾的【最大乘积】和【最小乘积】，
+  因为负数一来，最小的（负的）瞬间变成最大的（正的）。
+
+为什么不能像"最大子数组和"那样只记一个 max？
+  和：正数加正数变大，负数加正数变小 → 单调 → 记一个 max 就够了
+  积：正数乘负数变负，再乘负数又变正 → 来回跳 → 必须同时记 min 和 max
+
+状态转移：
+  以 i 结尾的最大乘积 = max(  nums[i] 自己单干,
+                             前一个最大 * nums[i],
+                             前一个最小 * nums[i]  )    ← 负负得正！
+
+  以 i 结尾的最小乘积 = min(  同上三个  )              ← 留给后面的负数来翻盘
+
+一句话记：
+  乘积会变号 → 最大最小都留着 → 负数来了让最小的翻盘。
+"""
+
+
 class Solution:
     def maxProduct(self, nums: list[int]) -> int:
 
-        max_dp = [nums[0]]
-        min_dp = [nums[0]]
+        max_dp = [nums[0]]  # 以 i 结尾的最大乘积
+        min_dp = [nums[0]]  # 以 i 结尾的最小乘积（等着被负数翻盘）
 
         for i in range(1, len(nums)):
 
-            choice_0 = nums[i]
-            choice_1 = max_dp[i-1] * nums[i]
-            choice_2 = min_dp[i-1] * nums[i]
+            choice_0 = nums[i]                # 自己单干（前面的累赘不如不要）
+            choice_1 = max_dp[i-1] * nums[i]  # 接在前面的最大值后面
+            choice_2 = min_dp[i-1] * nums[i]  # 接在前面的最小值后面（负负得正！）
 
             max_dp.append(max(choice_0, choice_1, choice_2))
             min_dp.append(min(choice_0, choice_1, choice_2))
 
         return max(max_dp)
 
-    def maxProduct(self, nums: list[int]) -> int:
+    # 空间优化版：只记上一个 max/min，不用整个数组
+    def maxProduct_optimized(self, nums: list[int]) -> int:
         last_max = nums[0]
         last_min = nums[0]
-
         max_value = nums[0]
 
         for i in range(1, len(nums)):
-            last_min, last_max = min(nums[i], last_max*nums[i], last_min*nums[i]
-                                     ), max(nums[i], last_max*nums[i], last_min*nums[i])
-
+            # 注意：必须同时赋值，否则 last_max 被修改后会影响 last_min 的计算
+            last_min, last_max = (
+                min(nums[i], last_max * nums[i], last_min * nums[i]),
+                max(nums[i], last_max * nums[i], last_min * nums[i])
+            )
             max_value = max(max_value, last_max)
 
         return max_value
-
-    # def maxProduct(self, nums: list[int]) -> int:
-    #     dp = [-1] * len(nums)
-
-    #     dp[0] = nums[0]
-
-    #     ans = 1
-
-    #     last_negative_idx = -10
-    #     for i in range(len(nums)):
-    #         if nums[i] < 0:
-    #             last_negative_idx = i
-
-    #     start_idx = -1
-
-    #     for i in range(1, len(nums)):
-    #         if nums[i] == 0:
-    #             start_idx = i+1
-    #             dp[i] = 0
-    #             continue
-
-    #         if nums[i] > 0:
-    #             dp[i] = nums[i] * dp[i-1] if dp[i-1] > 0 else nums[i]
-    #             continue
-
-    #         if last_negative_idx >= start_idx:
-    #             dp[i] = nums[i] * nums[last_negative_idx]
-    #             if i - last_negative_idx > 1 and last_negative_idx < i-1 < i:
-    #                 dp[i] *= dp[i-1]
-
-    #             if last_negative_idx-1 >= 0 and dp[last_negative_idx-1] > 0:
-    #                 dp[i] *= dp[last_negative_idx-1]
-
-    #         else:
-    #             dp[i] = nums[i]
-
-    #         last_negative_idx = i
-
-    #     return max(dp)
 
 
 nums_test = [2, 3, -2, 4]
