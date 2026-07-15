@@ -27,8 +27,8 @@ def func():
     against_map = {}
     for _ in range(against_count):
         a, b = input().strip().split()
-        against_map[a] = b
-        against_map[b] = a
+        against_map[a] = against_map.get(a, []) + [b]
+        against_map[b] = against_map.get(b, []) + [a]
 
     path = set()
     max_sum = 0
@@ -40,7 +40,7 @@ def func():
         nonlocal max_sum, results, path
 
         if current_sum > max_sum:
-            max_sum = current_sum  # wei chu li shegnxu bianhao
+            max_sum = current_sum  # 未处理 相等时按字典序选更小的
             results = set(path)
 
             # 这里不能return，避免局部最优解
@@ -51,9 +51,8 @@ def func():
         for i in range(index, len(type_keys)):
             cur_type = type_keys[i]
             cur_price = have_map[cur_type][0]
-            cur_antagonist = against_map.get(cur_type, "impossible str")
-
-            if cur_antagonist not in path:
+            antagonists = against_map.get(cur_type, [])
+            if not (set(antagonists) & path):
                 path.add(cur_type)
 
                 dfs(i + 1, current_sum + cur_price)
