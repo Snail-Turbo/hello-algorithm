@@ -34,7 +34,9 @@ def func():
     max_sum = 0
     results = set()
 
-    def dfs(current_sum: int):
+    type_keys = list(have_map.keys())
+
+    def dfs(index, current_sum: int):
         nonlocal max_sum, results, path
 
         if current_sum > max_sum:
@@ -46,16 +48,19 @@ def func():
         if len(path) == k:
             return
 
-        for type_, node in have_map.items():
-            # 这里用了 type_ not in path 来避免 重复添加进 path
-            if against_map.get(type_, "noway") not in path and type_ not in path:
-                path.add(type_)
+        for i in range(index, len(type_keys)):
+            cur_type = type_keys[i]
+            cur_price = have_map[cur_type][0]
+            cur_antagonist = against_map.get(cur_type, "impossible str")
 
-                dfs(current_sum + node[0])
+            if cur_antagonist not in path:
+                path.add(cur_type)
 
-                path.pop()
+                dfs(i + 1, current_sum + cur_price)
 
-    dfs(0)
+                path.remove(cur_type)
+
+    dfs(0, 0)
 
     print(max_sum)
     results = [have_map[type__][1] for type__ in list(results)]
