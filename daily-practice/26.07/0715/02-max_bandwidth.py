@@ -52,7 +52,8 @@ def func():
             cur_type = type_keys[i]
             cur_price = have_map[cur_type][0]
             antagonists = against_map.get(cur_type, [])
-            if not (set(antagonists) & path):
+
+            if not (set(antagonists) & path):  # 没有交集，则没有冲突
                 path.add(cur_type)
 
                 dfs(i + 1, current_sum + cur_price)
