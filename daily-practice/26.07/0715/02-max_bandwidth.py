@@ -34,29 +34,28 @@ def func():
     max_sum = 0
     results = set()
 
-    def dfs(index, current_sum: int):
-        nonlocal max_sum
-        nonlocal results
-        nonlocal path
+    def dfs(current_sum: int):
+        nonlocal max_sum, results, path
 
         if current_sum > max_sum:
             max_sum = current_sum  # wei chu li shegnxu bianhao
             results = set(path)
 
-            return
+            # 这里不能return，避免局部最优解
 
-        if index == len(prices):
+        if len(path) == k:
             return
 
         for type_, node in have_map.items():
-            if against_map.get(type_, "noway") not in path:
+            # 这里用了 type_ not in path 来避免 重复添加进 path
+            if against_map.get(type_, "noway") not in path and type_ not in path:
                 path.add(type_)
 
-                dfs(index+1, current_sum + node[0])
+                dfs(current_sum + node[0])
 
                 path.pop()
 
-    dfs(0, 0)
+    dfs(0)
 
     print(max_sum)
     results = [have_map[type__][1] for type__ in list(results)]
