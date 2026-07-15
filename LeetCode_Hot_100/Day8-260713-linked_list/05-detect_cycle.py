@@ -39,7 +39,8 @@ class Solution:
             fast = fast.next.next
 
             if slow == fast:
-                fast = head
+                fast = head  # head 走 a 步会到 环起点
+                # 原来的 slow 现在的位置，走 a 步 正好就是 kc，也就回到起点
 
                 while fast != slow:
                     fast = fast.next
