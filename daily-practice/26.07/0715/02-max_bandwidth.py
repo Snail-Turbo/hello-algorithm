@@ -27,46 +27,50 @@ def func():
     against_map = {}
     for _ in range(against_count):
         a, b = input().strip().split()
-        against_map[a] = against_map.get(a, []) + [b]
-        against_map[b] = against_map.get(b, []) + [a]
+        against_map.setdefault(a, set()).add(b)
+        against_map.setdefault(b, set()).add(a)
 
-    path = set()
-    max_sum = 0
-    results = set()
+    path_indexes = []          # 存原始索引，天然有序
+    path_type_set = set()   # 存类型名，O(1) 冲突检查
+    max_sum = -1
+    results = []     # 最优解的索引列表
 
-    type_keys = list(have_map.keys())
+    # 按最小原始索引排序，DFS 按此顺序遍历 → path 天然递增
+    type_keys = sorted(have_map.keys(), key=lambda t: have_map[t][1])
 
     def dfs(index, current_sum: int):
-        nonlocal max_sum, results, path
+        nonlocal max_sum, results, path_indexes, path_type_set
 
-        if current_sum > max_sum:
-            max_sum = current_sum  # 未处理 相等时按字典序选更小的
-            results = set(path)
+        # path 存的是索引，天然递增 → 直接比 list 就是字典序
+        if current_sum > max_sum or (current_sum == max_sum and path_indexes < results):
+            max_sum = current_sum
+            results = path_indexes.copy()
 
-            # 这里不能return，避免局部最优解
-
-        if len(path) == k:
+        if len(path_indexes) == k:
             return
 
         for i in range(index, len(type_keys)):
             cur_type = type_keys[i]
             cur_price = have_map[cur_type][0]
-            antagonists = against_map.get(cur_type, [])
+            cur_idx = have_map[cur_type][1]
+            antagonists = against_map.get(cur_type, set())
 
-            if not (set(antagonists) & path):  # 没有交集，则没有冲突
-                path.add(cur_type)
+            if not (antagonists & path_type_set):  # 没有交集，则没有冲突
+                path_indexes.append(cur_idx)               # 存索引
+                path_type_set.add(cur_type)             # 存类型（冲突检查用）
 
                 dfs(i + 1, current_sum + cur_price)
 
-                path.remove(cur_type)
+                path_indexes.pop()
+                path_type_set.remove(cur_type)
 
     dfs(0, 0)
 
     print(max_sum)
-    results = [have_map[type__][1] for type__ in list(results)]
-    results.sort()
+    # best_path 已经是索引列表，直接输出
+    results = sorted(results)
 
-    print(results[0])
+    print(results[0], end="")
     for i in range(1, len(results)):
         print(f" {results[i]}")
 
