@@ -4,7 +4,7 @@
 
 # 然后将当前索引入栈。对于每个索引，如果栈不为空，则说明找到了一个更高的温度，计算天数差并存入答案数组中。
 class Solution:
-    def dailyTemperatures(self, temperatures:list)->list:
+    def dailyTemperatures(self, temperatures: list) -> list:
         temperatures_length = len(temperatures)
         stack = []
         answer = [0] * temperatures_length
@@ -14,12 +14,12 @@ class Solution:
                 stack.pop()
 
             if stack:
-                answer[i] = stack[-1] - i
+                answer[i] = stack[-1] - i  # 当前温度的索引与栈顶索引的差值就是需要等待的天数
 
             stack.append(i)
 
         return answer
-    
+
 
 if __name__ == "__main__":
     line = input()
@@ -29,3 +29,8 @@ if __name__ == "__main__":
     result_list = so.dailyTemperatures(intput_list)
 
     print(f"[{','.join(map(str, result_list))}]")
+
+
+# 【温度的索引】
+# while stack and temperatures[stack[-1]] <= temperatures[i]:
+#     stack.pop()

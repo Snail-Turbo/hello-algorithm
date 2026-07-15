@@ -1,6 +1,5 @@
 
 
-
 # 为高的最大矩形宽度 = (右边第一个矮子的位置) - (左边第一个矮子的位置) - 1。
 class Solution:
     # def largest_rectangle_area_twice_stack(self, heights: list[int]) -> int: # 195ms
@@ -13,7 +12,7 @@ class Solution:
     #     for i, height in enumerate(heights):
     #         while stack and heights[stack[-1]] >= height:
     #             stack.pop()
-            
+
     #         if stack:
     #             lefts[i] = stack[-1]
 
@@ -24,10 +23,10 @@ class Solution:
     #     for i in range(len_heights-1, -1, -1):
     #         while stack and heights[stack[-1]] >= heights[i]:
     #             stack.pop()
-            
+
     #         if stack:
     #             rights[i] = stack[-1]
-            
+
     #         stack.append(i)
 
     #     max_area = 0
@@ -50,35 +49,36 @@ class Solution:
     # 5. 计算宽度 = (右边第一个矮子的位置) - (左边第一个矮子的位置) - 1。
     # 6. 计算面积 = 高 * 宽，更新最大面积。
 
-
     # 【最关键思路】
-    # 我维护一个单调递增栈。一旦来了个矮子（当前元素），把高个子踢飞。高个子倒下的瞬间：它的高度决定了矩形的高，踢它的矮子是右边界，垫在它下面的楼是左边界
+    # 我维护一个单调递增栈。一旦来了个矮子（当前元素），把高个子踢飞。
+    #
+    # 高个子倒下的瞬间：它的高度决定了矩形的高，踢它的矮子是右边界，垫在它下面的楼是左边界
     # heights = [0] + heights + [0]，在两边加上0，保证所有的柱子都能被弹出栈计算面积。
 
-    def largest_rectangle_area(self, heights: list[int]) -> int: # 123ms
+    def largest_rectangle_area(self, heights: list[int]) -> int:  # 123ms
         heights = heights + [0]
         max_area = 0
         stack = []
         for i, height in enumerate(heights):
-            
+
             while stack and heights[stack[-1]] > height:
                 current_height = heights[stack.pop()]
-                width = i - (stack[-1] if stack else (-1)) -1 # 区别
+                width = i - (stack[-1] if stack else (-1)) - 1  # 区别
 
                 max_area = max(max_area, width * current_height)
 
             stack.append(i)
 
         return max_area
-    
-    def largest_rectangle_area_v2(self, heights: list[int]) -> int: # 134ms
-        heights = [0] + heights + [0] # 区别
+
+    def largest_rectangle_area_v2(self, heights: list[int]) -> int:  # 134ms
+        heights = [0] + heights + [0]  # 区别
         max_area = 0
         stack = []
         for i, height in enumerate(heights):
             while stack and heights[stack[-1]] > height:
                 current_height = heights[stack.pop()]
-                width = i - stack[-1] -1
+                width = i - stack[-1] - 1  # 左开右开，所以 width = i - stack[-1] - 1
 
                 max_area = max(max_area, width * current_height)
 
@@ -86,43 +86,34 @@ class Solution:
 
         return max_area
 
-
-
-    def largest_rectangle_area_v3(self, heights: list[int]) -> int: # 147ms
+    def largest_rectangle_area_v3(self, heights: list[int]) -> int:  # 147ms
         heights = heights + [0]
         max_area = 0
-        stack = [-1] # 区别
+        stack = [-1]  # 区别
         for i, height in enumerate(heights):
-            while stack[-1]!=-1 and heights[stack[-1]] > height: # 区别
+            while stack[-1] != -1 and heights[stack[-1]] > height:  # 区别
                 current_height = heights[stack.pop()]
-                width = i - stack[-1] -1
+                width = i - stack[-1] - 1
 
                 max_area = max(max_area, width * current_height)
 
             stack.append(i)
 
         return max_area
-
 
 
 # --- 本地测试代码 ---
 if __name__ == "__main__":
     sol = Solution()
-    
+
     # 测试样例 1
     heights1 = [2, 1, 5, 6, 2, 3]
     print(f"输入: {heights1}")
     print(f"输出: {sol.largest_rectangle_area_twice_stack(heights1)}")  # 期望输出: 10
     print(f"输出: {sol.largest_rectangle_area_v2(heights1)}")  # 期望输出: 10
-    
+
     # 测试样例 2
     heights2 = [2, 3, 3, 1]
     print(f"输入: {heights2}")
     print(f"输出: {sol.largest_rectangle_area_twice_stack(heights2)}")  # 期望输出: 4
     print(f"输出: {sol.largest_rectangle_area_v2(heights2)}")  # 期望输出: 4
-
-
-
-
-
-

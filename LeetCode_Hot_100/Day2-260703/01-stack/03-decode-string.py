@@ -21,37 +21,38 @@ s保证是一个 有效 的输入。
 s中所有整数的取值范围为 [1, 300]
 """
 
+
 class Solution:
-    def decode_string(self, string:str)->str:
+    def decode_string(self, string: str) -> str:
         stack = []
 
         for char in string:
             if char != ']':
                 stack.append(char)
-            
+
             else:
                 # 此时 ']' 出现了，不入栈
                 tmp_string = ''
-                "10[abc3[cba]]"
+                # "10[abc3[cba]]"
                 while stack[-1] != '[':
                     tmp_string += stack.pop()
-                stack.pop() # 弹出'['
+                stack.pop()  # 弹出'['
 
-                tmp_string = tmp_string[::-1] # 记得反转
+                tmp_string = tmp_string[::-1]  # 记得反转
 
                 tmp_num_string = ''
-                # 【注意】 这里要 stack 判断非空
-                while stack and stack[-1].isdigit():
+                while stack and stack[-1].isdigit():  # 【注意】 这里要 stack 判断非空
                     tmp_num_string += stack.pop()
-                tmp_num_string = tmp_num_string[::-1] # 记得反转
+                tmp_num_string = tmp_num_string[::-1]  # 记得反转
 
                 tmp_num = int(tmp_num_string)
 
                 for _ in range(tmp_num):
                     for ch in tmp_string:
                         stack.append(ch)
-                
+
         return "".join(stack)
+
 
 if __name__ == "__main__":
     intput_string = "2[abc3[cba]]"
@@ -59,7 +60,3 @@ if __name__ == "__main__":
     so = Solution()
 
     print(so.decode_string(intput_string))
-
-
-                
-

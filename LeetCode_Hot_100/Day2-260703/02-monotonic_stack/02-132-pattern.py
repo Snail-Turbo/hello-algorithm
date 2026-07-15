@@ -1,18 +1,18 @@
 
 
 class Solution:
-    def find_132_pattern(self, nums:list[int])->bool:
+    def find_132_pattern(self, nums: list[int]) -> bool:
 
         n = len(nums)
         if n < 3:
             return False
-        
+
         mins = [float('inf')] * n
         mins[0] = nums[0]
 
         for i in range(1, n):
             mins[i] = min(mins[i-1], nums[i])
-        
+
         stack = []
 
         for k in range(n):
@@ -23,10 +23,10 @@ class Solution:
             if stack and mins[stack[-1]] < nums[k]:
                 return True
 
-            stack.append(k) 
+            stack.append(k)
 
         return False
-    
+
 
 if __name__ == "__main__":
     nums_input_string = "1 2 3 4"

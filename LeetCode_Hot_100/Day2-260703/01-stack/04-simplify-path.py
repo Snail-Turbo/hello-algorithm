@@ -31,7 +31,6 @@ path 保证是一个合法的 Unix 风格绝对路径
 """
 
 
-
 # input: path = "/.../a/../b/c/../d/"
 # output: "/.../b/d"
 
@@ -40,9 +39,9 @@ path 保证是一个合法的 Unix 风格绝对路径
 # 2. 如果是 '..'，则弹出栈顶元素（如果栈不为空）。
 # 3. 否则，将当前部分压入栈中。
 class Solution:
-    def simplify_path(self, path_original:str)->str:
+    def simplify_path(self, path_original: str) -> str:
         stack = []
-        
+
         split_path = path_original.split('/')
 
         for name in split_path:
@@ -53,11 +52,11 @@ class Solution:
                     stack.pop()
             else:
                 stack.append(name)
-        
+
         if not stack:
             return '/'
-        
-        return '/' + '/'.join(stack) # 记得 '/' 开头
+
+        return '/' + '/'.join(stack)  # 记得 '/' 开头
 
 
 if __name__ == "__main__":

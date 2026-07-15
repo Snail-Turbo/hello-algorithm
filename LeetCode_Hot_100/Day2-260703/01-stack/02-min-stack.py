@@ -26,7 +26,14 @@ pop、top 和 getMin 操作总是在非空栈上调用
 push, pop, top, and getMin 最多被调用 3 * 10^4 次
 """
 
-# 主要思路，维护一个min_stack，里面存局部最小值，push的时候，如果当前值小于等于min_stack的栈顶，就把当前值也push到min_stack中，pop的时候，如果当前值等于min_stack的栈顶，就把min_stack的栈顶也pop掉，这样min_stack的栈顶就是当前栈的最小值。
+# 主要思路
+#
+# 维护一个min_stack，里面存局部最小值
+#
+# push的时候，如果当前值小于等于min_stack的栈顶，就把当前值也push到min_stack中
+# pop的时候，如果当前值等于min_stack的栈顶，就把min_stack的栈顶也pop掉，这样min_stack的栈顶就是当前栈的最小值。
+
+
 class MinStack:
 
     def __init__(self):
@@ -35,7 +42,7 @@ class MinStack:
 
     def push(self, val: int) -> None:
         self.stack.append(val)
-        if not self.min_stack or val <= self.min_stack[-1]: # <=的原因是为了处理重复的最小值情况
+        if not self.min_stack or val <= self.min_stack[-1]:  # <=的原因是为了处理重复的最小值情况
             self.min_stack.append(val)
 
     def pop(self) -> int:
@@ -55,7 +62,7 @@ class MinStack:
         if self.min_stack:
             return self.min_stack[-1]
         return None
-    
+
 
 if __name__ == "__main__":
 
