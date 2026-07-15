@@ -23,7 +23,7 @@ class Solution:
 
         n, m = len(firstList), len(secondList)
 
-        while i<n and j<m:
+        while i < n and j < m:
             current_first = firstList[i]
             current_second = secondList[j]
 
@@ -33,15 +33,14 @@ class Solution:
             max_left = max(left_first, left_second)
             min_right = min(right_first, right_second)
 
-
             if max_left <= min_right:
                 results.append([max_left, min_right])
 
-            if right_first < right_second: # 关键点，否则 [9,20] ; [14,16], [17,20] 会被漏下，即保留未来可匹配段
+            # 这个关键点的意思是指：当第一个区间的右端点小于第二个区间的右端点时，移动第一个区间的指针，否则移动第二个区间的指针
+            if right_first < right_second:  # 关键点，否则 [9,20] ; [14,16], [17,20] 会被漏下，即保留未来可匹配段
                 i += 1
             else:
                 j += 1
-
 
         return results
 
@@ -52,11 +51,11 @@ if __name__ == "__main__":
 
     # 读取第一个区间列表
     # firstList = [list(map(int, input().split())) for _ in range(n)]
-    firstList = [[0,2],[5,10],[13,23],[24,25]]
+    firstList = [[0, 2], [5, 10], [13, 23], [24, 25]]
 
     # 读取第二个区间列表
     # secondList = [list(map(int, input().split())) for _ in range(m)]
-    secondList = [[1,5],[8,12],[15,24],[25,26]]
+    secondList = [[1, 5], [8, 12], [15, 24], [25, 26]]
 
     # 调用函数并输出结果
     solution = Solution()

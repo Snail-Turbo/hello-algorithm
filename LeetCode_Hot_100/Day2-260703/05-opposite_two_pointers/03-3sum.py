@@ -27,6 +27,8 @@ nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
 """
 
 # 关键思路：使用双指针技术，先对数组进行排序，然后固定一个数，用两个指针分别指向剩余数组的首尾，根据三数之和与目标值的大小关系移动指针
+
+
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
         length = len(nums)
@@ -38,11 +40,12 @@ class Solution:
         answers = []
 
         for i in range(length):
-            if i > 0 and nums[i] == nums[i-1]: # 【核心易错】 减少重复
+            if i > 0 and nums[i] == nums[i-1]:  # 【核心易错】 减少重复
                 continue
 
-            j, k = i + 1, length - 1
             current_diff = -nums[i]
+
+            j, k = i + 1, length - 1
             while j < k:
                 current_sum = nums[j] + nums[k]
 
@@ -52,11 +55,12 @@ class Solution:
                     j += 1
                     k -= 1
 
-                    while j < k and nums[j] == nums[j-1]: # 【核心易错】 减少重复
+                    while j < k and nums[j] == nums[j-1]:  # 【核心易错】 减少重复
                         j += 1
 
-                    while j < k and nums[k] == nums[k+1]: # 【核心易错】 减少重复
+                    while j < k and nums[k] == nums[k+1]:  # 【核心易错】 减少重复
                         k -= 1
+
                 elif current_sum < current_diff:
                     j += 1
                 else:
@@ -65,5 +69,4 @@ class Solution:
         return answers
 
 
-
-nums = [-1,0,1,2,-1,-4]
+nums = [-1, 0, 1, 2, -1, -4]
