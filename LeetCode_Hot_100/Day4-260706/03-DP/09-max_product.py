@@ -23,6 +23,41 @@
 
 class Solution:
     def maxProduct(self, nums: list[int]) -> int:
+        max_dp = [nums[0]]  # 以 i 结尾的【最大乘积】
+        min_dp = [nums[0]]  # 以 i 结尾的【最小乘积】
+
+        for i in range(1, len(nums)):
+            choices = (
+                nums[i],
+                max_dp[i-1] * nums[i],
+                min_dp[i-1] * nums[i]
+            )
+
+            max_dp.append(max(choices))
+            min_dp.append(min(choices))
+
+        return max(max_dp)  # 所有结尾中，最大的
+
+    def maxProduct_compressed(self, nums: list[int]) -> int:
+        max_result = nums[0]
+        last_max = nums[0]
+        last_min = nums[0]
+
+        for i in range(1, len(nums)):
+            choices = (
+                nums[i],
+                last_max * nums[i],
+                last_min * nums[i]
+            )
+
+            last_max = max(choices)
+            last_min = min(choices)
+
+            max_result = max(max_result, last_max)
+
+        return max_result
+
+    def maxProduct(self, nums: list[int]) -> int:
 
         max_dp = [nums[0]]  # 以 i 结尾的最大乘积
         min_dp = [nums[0]]  # 以 i 结尾的最小乘积（等着被负数翻盘）

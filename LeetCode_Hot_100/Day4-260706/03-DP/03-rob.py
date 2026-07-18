@@ -23,6 +23,19 @@ class Solution:
 
         return dp[-1]
 
+    def rob_compressed(self, nums: list[int]) -> int:
+
+        dp1 = 0
+        dp2 = nums[0]
+
+        for i in range(1, len(nums)):
+            current = max(dp1 + nums[i], dp2)
+
+            dp1 = dp2
+            dp2 = current
+
+        return current
+
 
 nums1 = [1, 2, 3, 1]
 nums2 = [2, 7, 9, 3, 1]

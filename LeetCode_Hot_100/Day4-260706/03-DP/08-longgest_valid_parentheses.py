@@ -29,6 +29,28 @@
 
 
 class Solution:
+    def longestValidParentheses_ng(self, s: str) -> int:
+        n = len(s)
+        if n < 2:
+            return 0
+
+        dp = [0] * n
+        dp[1] = 2 if s[0] == '(' and s[1] == ')' else 0  # 关键
+
+        for i in range(2, n):
+            if s[i] == '(':
+                continue
+
+            if s[i-1] == '(':
+                dp[i] = 2 + dp[i-2]
+                continue
+
+            mid = i-dp[i-1]-1
+            if mid >= 0 and s[mid] == '(':
+                dp[i] = dp[i-1] + 2 + (dp[mid-1] if mid-1 >= 0 else 0)  # 关键：(dp[mid-1] if mid-1 >= 0 else 0)
+
+        return max(dp)
+
     def longestValidParentheses(self, s: str) -> int:
         n = len(s)
         if n < 2:
