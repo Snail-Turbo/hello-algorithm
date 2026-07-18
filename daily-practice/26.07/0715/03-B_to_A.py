@@ -34,5 +34,24 @@ def func():
     print(dp[-1][-1])
 
 
+def func_insert(str1: str, str2: str):
+    len_str1 = len(str1)
+    len_str2 = len(str2)
+
+    dp = [0] * (len_str2 + 1)
+
+    dp[0] = len_str1
+
+    0, 1, 2, 3, 4, 5
+    1, 
+    2
+    3
+    4
+    5
+
+
 if __name__ == "__main__":
+    str1 = input().strip()
+    str2 = input().strip()
+
     func()

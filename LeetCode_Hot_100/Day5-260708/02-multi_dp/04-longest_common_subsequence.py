@@ -1,66 +1,37 @@
 """
-1143. 最长公共子序列
-中等
-相关标签
-premium lock icon
-相关企业
-提示
-给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。
+1143. 最长公共子序列 (LCS)
 
-一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
+核心思路（DP）：
+  dp[i][j] = text1 前 i 个字符 与 text2 前 j 个字符 的 LCS 长度。
 
-例如，"ace" 是 "abcde" 的子序列，但 "aec" 不是 "abcde" 的子序列。
-两个字符串的 公共子序列 是这两个字符串所共同拥有的子序列。
+  字符相等（text1[i-1] == text2[j-1]）：
+    → dp[i][j] = dp[i-1][j-1] + 1    两人都消掉这个字符，↖ + 1
 
- 
+  字符不等：
+    → dp[i][j] = max(dp[i-1][j], dp[i][j-1])   至少一人扔掉这个字符，max(↑, ←)
 
-示例 1：
-
-输入：text1 = "abcde", text2 = "ace" 
-输出：3  
-解释：最长公共子序列是 "ace" ，它的长度为 3 。
-示例 2：
-
-输入：text1 = "abc", text2 = "abc"
-输出：3
-解释：最长公共子序列是 "abc" ，它的长度为 3 。
-示例 3：
-
-输入：text1 = "abc", text2 = "def"
-输出：0
-解释：两个字符串没有公共子序列，返回 0 。
- 
-
-提示：
-
-1 <= text1.length, text2.length <= 1000
-text1 和 text2 仅由小写英文字符组成。
+一句话记：
+  相等取左上角+1，不等取 max(上方, 左方)。
 """
-
-# 主要思路：
-# 1. text1删除若干字符
-# 2. text2删除若干字符
-# 3. left_text1 == left_text2， max_length
 
 
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        lent_text1 = len(text1)
-        lent_text2 = len(text2)
+        len_text1 = len(text1)
+        len_text2 = len(text2)
 
-        dp = [[0] * (lent_text2+1) for _ in range(lent_text1+1)]  # 【易错点】 里面是 text2，外面是 text1
-        dp[1][1] = text1[0] == text2[0]
+        # dp[i][j]: text1[:i] 与 text2[:j] 的 LCS
+        dp = [[0] * (len_text2 + 1) for _ in range(len_text1 + 1)]
 
-        for i in range(1, lent_text1+1):
-            for j in range(1, lent_text2+1):
-                if text1[i-1] == text2[j-1]:
-                    dp[i][j] = dp[i-1][j-1] + 1
-                    continue
+        for i in range(1, len_text1 + 1):
+            for j in range(1, len_text2 + 1):
+                if text1[i - 1] == text2[j - 1]:       # 相等 → ↖ + 1
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                else:                                   # 不等 → max(↑, ←)
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
 
-                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
-
-        return dp[-1][-1]
+        return len_text1 - dp[-1][-1]
 
 
 so = Solution()
-print(so.longestCommonSubsequence("abcde", "ace"))
+print(so.longestCommonSubsequence("abcde", "ac"))
