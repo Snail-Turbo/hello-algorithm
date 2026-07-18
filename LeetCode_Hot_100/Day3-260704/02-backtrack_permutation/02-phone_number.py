@@ -55,7 +55,7 @@ class Solution:
 
             current_digits = phone_map[digits[current_index]]
 
-            for i, digit in enumerate(current_digits):
+            for digit in current_digits:
                 path.append(digit)
 
                 backtrack(current_index+1)

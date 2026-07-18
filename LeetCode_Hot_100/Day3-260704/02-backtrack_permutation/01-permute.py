@@ -35,6 +35,7 @@ class Solution:
     def permute(self, nums: list[int]) -> list[list[int]]:
         results = []
         path = []
+
         n = len(nums)
 
         used = [0] * n
@@ -45,7 +46,7 @@ class Solution:
                 return
 
             for i in range(n):  # 和 01-combination 的区别，就是每个地方都遍历所有
-                if used[i] == 1:  # 然后used 不选
+                if used[i]:  # 然后used 不选
                     continue
 
                 path.append(nums[i])

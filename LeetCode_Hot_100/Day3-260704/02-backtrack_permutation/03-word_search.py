@@ -1,9 +1,13 @@
 """
 79. 单词搜索
 
-给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。
+给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。
 
-单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+如果 word 存在于网格中，返回 true ；否则，返回 false 。
+
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。
+
+同一个单元格内的字母不允许被重复使用。
 """
 
 
@@ -15,6 +19,7 @@ class Solution:
         used = [[0] * x_len for _ in range(y_len)]
         path = []
         n_target = len(word)
+
         direction = [[0, -1], [0, 1], [-1, 0], [1, 0]]
 
         def backtrack(y, x):
@@ -23,7 +28,10 @@ class Solution:
 
             for diff_y, diff_x in direction:
                 new_y, new_x = y + diff_y, x + diff_x
-                if new_y not in range(y_len) or new_x not in range(x_len) or used[new_y][new_x] or board[new_y][new_x] not in word:
+                if new_y not in range(y_len) or new_x not in range(x_len):
+                    continue
+
+                if used[new_y][new_x] or board[new_y][new_x] not in word[len(path)-1]:
                     continue
 
                 path.append(board[new_y][new_x])
