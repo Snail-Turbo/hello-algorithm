@@ -30,7 +30,7 @@ class Solution:
                 else:                                   # 不等 → max(↑, ←)
                     dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
 
-        return len_text1 - dp[-1][-1]
+        return dp[-1][-1]
 
 
 so = Solution()
