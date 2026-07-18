@@ -23,6 +23,7 @@ class Solution:
     def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:
         # 邻接表：edges[i] = 修完 i 之后可以修的课的列表
         edges = [[] for _ in range(numCourses)]
+
         # 入度：in_degrees[i] = 修 i 之前必须先修多少门课
         in_degrees = [0] * numCourses
 

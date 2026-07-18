@@ -7,15 +7,15 @@ class Solution:
         directions = [[0, -1], [0, 1], [-1, 0], [1, 0]]
 
         q = []
-        head = 0
-        max_minutes = 0
-
+        # 先把 多源 起点 dist=0 加入
         for y in range(len_y):
             for x in range(len_x):
                 if grid[y][x] == 2:
                     q.append((y, x))
                     dist[y][x] = 0  # 进就标记 visited，多源BFS，源全为0时候
 
+        max_minutes = 0
+        head = 0
         while head < len(q):
             current_y, current_x = q[head]  # 只增不减的 queue，避免 O(n)
             head += 1
@@ -35,6 +35,7 @@ class Solution:
                 # 顺便计算 max，避免多一个 for 循环
                 max_minutes = max(max_minutes, dist[new_y][new_x])
 
+        # 若是还有 未 腐烂的，则 return -1
         for i in range(len_y):
             for j in range(len_x):
                 if grid[i][j] == 1 and dist[i][j] == -1:
