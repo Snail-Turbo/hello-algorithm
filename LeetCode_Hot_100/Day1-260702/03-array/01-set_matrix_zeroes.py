@@ -6,20 +6,24 @@
 # 1. 使用两个标记数组分别记录每一行和每一列是否需要被置零，最后再遍历一遍矩阵，将需要置零的行和列置零。
 # 2. 使用矩阵的第一行和第一列作为标记数组，最后再根据第一行和第一列的标记来置零，同时需要额外记录第一行和第一列是否需要被置零。
 
+
 class Solution:
     def set_zeros(self, matrix: list[list[int]]) -> None:
         count_col = len(matrix[0])
         count_row = len(matrix)
 
+        # 记录第一行和第一列是否需要被置零
         first_col_has_zero = any(matrix[i][0] == 0 for i in range(count_row))
         first_row_has_zero = any(matrix[0][j] == 0 for j in range(count_col))
 
+        # 使用第一行和第一列作为标记数组，记录每一行和每一列是否需要被置零
         for i in range(1, count_row):
             for j in range(1, count_col):
                 if matrix[i][j] == 0:
                     matrix[i][0] = 0
                     matrix[0][j] = 0
-        
+
+        # 根据第一行和第一列的标记来置零，这里是否可以只遍历第一行和第一列，是0再进去？
         for i in range(1, count_row):
             for j in range(1, count_col):
                 if matrix[i][0] == 0 or matrix[0][j] == 0:
@@ -32,9 +36,9 @@ class Solution:
         if first_row_has_zero:
             for j in range(count_col):
                 matrix[0][j] = 0
-        
+
         return matrix
-    
+
 
 if __name__ == "__main__":
     """
@@ -49,7 +53,6 @@ if __name__ == "__main__":
 
     solution = Solution()
     result = solution.set_zeros(matrix)
-    
+
     for i in range(count_row):
         print(" ".join(map(str, result[i])))
-        
