@@ -41,7 +41,7 @@ class Solution:
                     continue
 
                 path.append(current_slice)
-                backtrack(right_cut)
+                backtrack(right_cut)  # 下一个开始，从 right_cut 的字符开始
                 path.pop()
 
         backtrack(0)

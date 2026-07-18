@@ -39,7 +39,7 @@ class Solution:
                 backtrack(left_count-1, right_count)
                 path.pop()
 
-            if right_count > left_count:
+            if left_count < right_count:
                 path.append(")")
                 backtrack(left_count, right_count-1)
                 path.pop()

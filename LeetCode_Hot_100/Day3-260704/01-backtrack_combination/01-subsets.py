@@ -63,6 +63,27 @@ class Solution:
 
         return result
 
+    def subsets_for_each(self, nums: list[int]) -> list[list[int]]:
+        n = len(nums)
+
+        results = []
+        path = []
+
+        def backtrack(current_index):
+            results.append(path[:])  # 必须是 path[:] 拷贝！不能直接传 path
+
+            for i in range(current_index, n):  # current_index 的作用就是 used
+                path.append(nums[i])
+
+                backtrack(i + 1)
+                # backtrack(i)
+
+                path.pop()
+
+        backtrack(0)  # 千万别忘了启动！
+
+        return results
+
 
 nums = [1, 2, 3]
 
