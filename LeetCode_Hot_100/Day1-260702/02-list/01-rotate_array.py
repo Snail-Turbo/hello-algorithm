@@ -6,6 +6,7 @@ count = int(input())
 nums = list(map(int, input().split()))
 k = int(input())
 
+
 def rotate(count, nums, k):
 
     if count == 0:
@@ -20,6 +21,6 @@ def rotate(count, nums, k):
     # nums[:] = nums[-k:] + nums[:-k]
 
     # 新算法：O(n) 时间复杂度，O(1) 空间复杂度
-    nums.reserve()
+    nums.reverse()
     nums[:k] = reversed(nums[:k])
     nums[k:] = reversed(nums[k:])
