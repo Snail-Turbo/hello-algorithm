@@ -9,7 +9,11 @@ class Solution:
         stack = []
         answer = [0] * temperatures_length
 
+        # 从右向左，单调递减栈
         for i in range(temperatures_length-1, -1, -1):
+            # 单调递减栈，所以里面如果最上面的不是大于他的温度，就弹出
+            #
+            # 同时，栈内存储的是 index
             while stack and temperatures[stack[-1]] <= temperatures[i]:
                 stack.pop()
 

@@ -101,8 +101,30 @@ class Solution:
 
         return max_area
 
+    def largest_rectangle_area_my(self, heights: list[int]) -> int:
+        heights = [0] + heights + [0]
+        max_area = 0
+        stack = []
 
-# --- 本地测试代码 ---
+        for i, height in enumerate(heights):
+            while stack and heights[stack[-1]] > height:
+                current_height_index = stack.pop()
+                current_height = heights[current_height_index]
+
+                left_index = stack[-1]
+                right_index = i
+                width = right_index - left_index - 1
+
+                current_area = current_height * width
+
+                max_area = max(current_area, max_area)
+
+            stack.append(i)
+
+        return max_area
+
+
+        # --- 本地测试代码 ---
 if __name__ == "__main__":
     sol = Solution()
 
