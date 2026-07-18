@@ -17,10 +17,11 @@
 5
 """
 
+
 def is_target_in_matrix(matrix: list[list[int]], target: int) -> bool:
     if not matrix or not matrix[0]:
         return False
-    
+
     m, n = len(matrix), len(matrix[0])
 
     # 选择从右上角开始搜索
@@ -37,6 +38,7 @@ def is_target_in_matrix(matrix: list[list[int]], target: int) -> bool:
 
     return False
 
+
 if __name__ == "__main__":
     """
     5 5
@@ -47,7 +49,7 @@ if __name__ == "__main__":
     18 21 23 26 30
     5
     """
-    
+
     m, n = map(int, input().split())
 
     matrix = []
