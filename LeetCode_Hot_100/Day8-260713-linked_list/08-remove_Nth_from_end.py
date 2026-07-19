@@ -41,6 +41,8 @@ class Solution:
         return head.next  # 如果没有 prefix_node，说明 要删除的就是第一个
 
     def removeNthFromEn_two_pointers(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        # 思路：
+        # 1. slow要在 target 的 前面
         dummy = ListNode()  # dummy 使得一定能够走 n+1
         dummy.next = head
         slow, fast = dummy, dummy
@@ -55,3 +57,21 @@ class Solution:
         slow.next = slow.next.next
 
         return dummy.next
+
+    def removeNthFromEnd_no_dummy(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        slow: ListNode = head
+        fast: ListNode = head
+
+        for _ in range(n):
+            fast = fast.next
+
+        if not fast:
+            return head.next
+
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
+
+        slow.next = slow.next.next
+
+        return head

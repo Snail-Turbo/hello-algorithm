@@ -69,6 +69,7 @@ class Solution:
             next_group_previous = group_previous.next
             group_previous.next = already
 
+            # 最后：group_previous 走向 next_group_previous
             group_previous = next_group_previous
 
         return dummy.next

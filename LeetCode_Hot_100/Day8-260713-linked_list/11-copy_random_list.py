@@ -27,8 +27,8 @@ class Solution:
 
         current = head
         while current:
-            old_to_new_map[current].next = old_to_new_map.get(current.next)  # 这里要用 get，因为 next，random 可能是 None
-            old_to_new_map[current].random = old_to_new_map.get(current.random)
+            old_to_new_map[current].next = old_to_new_map.get(current.next, None)  # 这里要用 get，因为 next，random 可能是 None
+            old_to_new_map[current].random = old_to_new_map.get(current.random, None)
             current = current.next
 
         return old_to_new_map[head]

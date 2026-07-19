@@ -46,6 +46,15 @@ class Solution:
 
         return check_back(head)
 
+    # 快慢双指针 + reverse:
+
+    # 1 -> 2 -> 3
+    # 会变成：
+    # 1 -> 2 <- 3
+
+    # 1，2，3，4
+    # 会变成
+    # 1 -> 2 -> 3 <- 4
     def _reverse_linked_list(self, head: ListNode) -> ListNode:
         already = None
         current = head
@@ -71,7 +80,7 @@ class Solution:
         second = self._reverse_linked_list(slow)
         first = head
 
-        while second:
+        while second:  # 这里必须以 second为准，因为没有切断前面
             if first.val != second.val:
                 return False
 
@@ -79,13 +88,3 @@ class Solution:
             second = second.next
 
         return True
-
-
-# 1 -> 2 -> 3
-# 会变成：
-# 1 -> 2 <- 3
-
-
-# 1，2，3，4
-# 会变成
-# 1 -> 2 -> 3 <- 4
