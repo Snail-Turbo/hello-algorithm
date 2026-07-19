@@ -13,73 +13,74 @@ class ListNode:
 
 class LRUCache:
     def __init__(self, capacity: int):
-        self.capacity = capacity
-        self.key_map: dict[int, ListNode] = {}
 
-        self.head = ListNode(0, 0)
-        self.tail = ListNode(0, 0)
+        self.capacity = capacity
+        self.key_node_map = {}  # key, ListNode
+
+        self.head = ListNode(-1, 0)
+        self.tail = ListNode(-1, 0)
+
         self.head.next = self.tail
         self.tail.prev = self.head
 
     def get(self, key: int) -> int:
-        if key not in self.key_map:
-            return -1
+        if key in self.key_node_map:
+            node: ListNode = self.key_node_map[key]
 
-        current_node: ListNode = self.key_map[key]
+            # 最久未使用的关键字
+            # 这里使用了 要翻新
+            self._up(node)
 
-        self._up(current_node)
+            return node.value
 
-        return current_node.value
-
-        # 最久未使用的关键字
-        # 这里使用了 要翻新
+        return -1
 
     def put(self, key: int, value: int) -> None:
-
-        if key in self.key_map:
-            current_node = self.key_map[key]
-            current_node.value = value
-
-            self._up(current_node)
-
+        if key in self.key_node_map:
             # 若有则更新
-            # 若没有则加入，若满 则 last used 出
 
             # 新进的翻新
+            node: ListNode = self.key_node_map[key]
+            node.value = value
+
+            self._up(node)
         else:
-            current_node = ListNode(key, value)
+            # 若没有则加入，若满 则 last used 出
+            node = ListNode(key, value)
+            self.key_node_map[key] = node
 
-            self.key_map[key] = current_node
+            # 新进的翻新
+            self._add_after_head(node)
 
-            # 新进放前面
+            # 有新进的要判断容量
+            if len(self.key_node_map) > self.capacity:
+                to_remove = self.tail.prev
 
-            current_node.next = self.head.next
-            current_node.prev = self.head
+                # tail前面的去掉，续前后
+                self.tail.prev = to_remove.prev
+                to_remove.prev.next = self.tail
 
-            current_node.next.prev = current_node
-            current_node.prev.next = current_node
+                # 【核心】del
+                del self.key_node_map[to_remove.key]
 
-            if len(self.key_map) > self.capacity:
-                to_remove_node: ListNode = self.tail.prev
+    def _add_after_head(self, target_node: ListNode):
+        target_node.next = self.head.next
+        target_node.prev = self.head
 
-                # 前后连上
-                to_remove_node.prev.next = to_remove_node.next
-                to_remove_node.next.prev = to_remove_node.prev
-
-                # 删 last recently used
-                del self.key_map[to_remove_node.key]
+        target_node.next.prev = target_node
+        target_node.prev.next = target_node
 
     def _up(self, target_node: ListNode):
-
-        # 只有 已存在 才需要 Up
+        if target_node.prev is self.head:
+            return
 
         # 已存在，则 前后连上，自己剥离
-        target_node.next.prev = target_node.prev
         target_node.prev.next = target_node.next
+        target_node.next.prev = target_node.prev
 
         # 自己前变head，后接之前second
         target_node.next = self.head.next
         target_node.prev = self.head
 
-        target_node.prev.next = target_node
         target_node.next.prev = target_node
+        target_node.prev.next = target_node
