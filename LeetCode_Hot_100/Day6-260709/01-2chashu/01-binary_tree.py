@@ -42,6 +42,33 @@ class Solution:
 
         return root_node
 
+    def create_binary_tree(self, tree_list):
+        if len(tree_list) == 0:
+            return None
+
+        root_node = TreeNode(tree_list[0])
+
+        queue = [root_node]
+
+        index = 1
+
+        while queue and index < len(tree_list):
+            current_parent = queue.pop(0)
+
+            if tree_list[index] is not None:
+                current_parent.left = TreeNode(tree_list[index])
+                queue.append(current_parent.left)
+
+            index += 1
+
+            if index < len(tree_list) and tree_list[index] is not None:
+                current_parent.right = TreeNode(tree_list[index])
+                queue.append(current_parent.right)
+
+            index += 1
+
+        return root_node
+
 
 def seserialize(tree_str: str):
     tree_str = tree_str.strip()
