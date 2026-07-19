@@ -23,6 +23,14 @@ s 仅由数字和英文字母组成
 
 
 class Solution:
+    # 关键思路：两头字符相同 + 掐头去尾后中间也是回文 → 整体就是回文。
+    #
+    # dp[i][j] = s[i-1:j] 是否回文（1-indexed） 【两边都包含在内，i-1 和 j-1】
+    #   j==i    → True（单字符）
+    #   j-i==1  → s[i-1]==s[j-1]（长度2，看两头）
+    #   j-i>1   → s[i-1]==s[j-1] and dp[i+1][j-1]（两头同+中间回文）
+    #
+    # i 从大到小遍历，保证 dp[i+1][j-1]（内部短串）先算好
     def longestPalindrome(self, s: str) -> str:
         len_s = len(s)
 
@@ -60,9 +68,8 @@ class Solution:
                     dp[i][j] = True
 
                 elif s[i-1] == s[j-1]:  # 相同if先判断，剪枝
-                    dp[i][j] = True
-                    if j-i > 1:
-                        dp[i][j] = dp[i+1][j-1]
+
+                    dp[i][j] = dp[i+1][j-1] if j-i > 1 else True
 
                 if dp[i][j] and j-i+1 > max_length:
                     max_length = j-i+1

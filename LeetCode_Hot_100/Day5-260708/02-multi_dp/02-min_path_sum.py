@@ -30,10 +30,15 @@ class Solution:
         len_x = len(grid[0])
         dp = [[max_impossible] * (len_x + 1) for _ in range(len_y + 1)]
 
+        # dp[1][1] = grid[0][0]
+
         dp[0][1] = 0
 
         for i in range(1, len_y+1):
             for j in range(1, len_x+1):
+                # if i == 1 and j == 1:
+                #     continue
+
                 dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i-1][j-1]
         return dp[-1][-1]
 

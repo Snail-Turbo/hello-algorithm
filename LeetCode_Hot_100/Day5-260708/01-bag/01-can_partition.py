@@ -48,6 +48,21 @@ class Solution:
     # 所以 依赖 j 和 j-num
     # 倒叙就可以用上j，j位置就可以释放了，j-num还在存
 
+    def canPartition_compressed(self, nums: list[int]) -> bool:
+        sum_total = sum(nums)
+        if sum_total % 2 != 0:
+            return False
+
+        target = sum_total // 2
+        dp = [False] * (target + 1)
+        dp[0] = True
+
+        for num in nums:
+            for j in range(target, num - 1, -1):
+                dp[j] = dp[j] or dp[j-num]
+
+        return dp[-1]
+
 
 input_nums = [100, 4, 6]
 so = Solution()

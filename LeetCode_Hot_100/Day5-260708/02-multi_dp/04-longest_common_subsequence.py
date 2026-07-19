@@ -32,6 +32,26 @@ class Solution:
 
         return dp[-1][-1]
 
+    def longestCommonSubsequence_compressed(self, text1: str, text2: str) -> int:
+        len_text1 = len(text1)
+        len_text2 = len(text2)
+
+        dp = [0] * (len_text2 + 1)
+
+        for i in range(1, len_text1 + 1):
+            left_top = 0
+            for j in range(1, len_text2 + 1):
+                new_left_top = dp[j]
+
+                if text1[i-1] == text2[j-1]:
+                    dp[j] = left_top + 1
+                else:
+                    dp[j] = max(new_left_top, dp[j-1])
+
+                left_top = new_left_top
+
+        return dp[-1]
+
 
 so = Solution()
 print(so.longestCommonSubsequence("abcde", "ac"))

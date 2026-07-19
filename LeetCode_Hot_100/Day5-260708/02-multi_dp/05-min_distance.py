@@ -53,9 +53,9 @@ class Solution:
                     dp[i][j] = dp[i-1][j-1]
                 else:
                     dp[i][j] = min(
-                        dp[i-1][j],
-                        dp[i][j-1],
-                        dp[i-1][j-1]
+                        dp[i-1][j],     # word1 当前不要
+                        dp[i][j-1],     # word1 插入 word2 当前
+                        dp[i-1][j-1]    # word1 当前 替换 word2 当前
                     ) + 1
 
         return dp[-1][-1]
