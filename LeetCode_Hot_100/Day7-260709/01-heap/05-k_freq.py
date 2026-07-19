@@ -15,12 +15,11 @@ class Solution:
 
             if len(heap) > k:
                 heapq.heappop(heap)
-                # pass
 
-        # print(heap)
-        return [item[1] for item in heap][::-1]
+        print(heap)
+        return [item[1] for item in heap]
 
 
-test = [1, 1, 1, 2, 2, 3]
+test = [1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5]
 so = Solution()
-print(so.topKFrequent(test, 2))
+print(so.topKFrequent(test, 4))

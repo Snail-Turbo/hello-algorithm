@@ -43,3 +43,35 @@ class Solution:
                     right = mid_index - 1
 
         return -1
+
+    def search(self, nums: list[int], target: int) -> int:
+        def __get_type(target, current_segmant):
+            return 0 if target > current_segmant else 1
+
+        current_segmant = nums[-1]
+        len_nums = len(nums)
+
+        left = 0
+        right = len_nums - 1
+
+        target_type = __get_type(target, current_segmant)
+
+        while left <= right:
+            mid_index = (left + right) // 2
+            current_value = nums[mid_index]
+            current_type = __get_type(current_value, current_segmant)
+
+            if target_type == current_type:
+                if current_value == target:
+                    return mid_index
+                elif current_value < target:
+                    left = mid_index + 1
+                else:
+                    right = mid_index - 1
+
+            elif current_value > target:
+                left = mid_index + 1
+            else:
+                right = mid_index - 1
+
+        return -1
