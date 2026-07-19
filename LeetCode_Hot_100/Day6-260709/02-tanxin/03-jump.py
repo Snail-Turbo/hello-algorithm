@@ -4,13 +4,14 @@ class Solution:
         if n <= 1:
             return 0
         ans = 0
+
         end = 0
         idx = 0
 
-        while end < n-1:
+        while end < n-1:  # 如果跳的 end>= n-1 则就是已经能够跳到终点了，且这一次也已经计算上了
             current_num = nums[idx]
 
-            end = min(idx+current_num, n-1)
+            end = min(idx+current_num, n-1)  # 最多跳到终点
 
             current_right = -1
             max_idx = -1

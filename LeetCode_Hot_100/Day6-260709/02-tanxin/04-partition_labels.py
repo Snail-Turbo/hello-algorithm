@@ -10,7 +10,7 @@ class Solution:
             last[s[i]] = i
 
         answer = []
-        left = 0
+        left = 0  # 用于 计算长度
         right = 0
 
         for i in range(len_s):  # 从左向右每个字符遍历

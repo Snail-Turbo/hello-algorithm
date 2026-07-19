@@ -33,6 +33,30 @@ class Solution:
 
         return res
 
+    def rightSideView_my(self, root: TreeNode) -> list[int]:
+        if not root:
+            return []
+
+        result = [root.val]
+
+        queue = [root]
+
+        while queue:
+            q_next_level = []
+            for node in queue:
+                if node.left:
+                    q_next_level.append(node.left)
+
+                if node.right:
+                    q_next_level.append(node.right)
+
+            queue = q_next_level
+
+            if q_next_level:
+                result.append(q_next_level[-1].val)
+
+        return result
+
     def rightSideView(self, root: TreeNode) -> list[int]:
 
         if not root:

@@ -7,6 +7,27 @@ class TreeNode:
 
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+
+        answer = 0
+
+        def dfs(node: TreeNode, depth: int):
+            if not node:
+                return
+
+            if not node.left and not node.right and depth > answer:
+                answer = depth
+                return
+
+            dfs(node.left, depth+1)
+            dfs(node.right, depth+1)
+
+            return
+
+        dfs(root, 1)
+
+    def maxDepth(self, root: TreeNode) -> int:
         # 自顶向下，求每一个到 叶子 路径长度
         if root is None:
             return 0
@@ -30,6 +51,13 @@ class Solution:
         dfs(root, 1)
 
         return answer
+
+    def maxDepth2(self, root: TreeNode) -> int:
+        def dfs(node: TreeNode) -> int:
+            if not node:
+                return 0
+
+            return max(dfs(node.left), dfs(node.right)) + 1
 
     def maxDepth2(self, root: TreeNode) -> int:
         def dfs(node):
