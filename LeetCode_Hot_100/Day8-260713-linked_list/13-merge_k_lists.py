@@ -42,3 +42,21 @@ class Solution:
                 heapq.heappush(tmp_heap, (current_tmp_node.next.val, i, current_tmp_node.next))
 
         return dummy.next
+
+    def mergeKLists_my_refactor(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        tmp_heap = []
+
+        for i, head in enumerate(lists):
+            if head:
+                heapq.heappush(tmp_heap, (head.val, i, head))
+
+        dummy = ListNode()
+        current: ListNode = dummy
+        while tmp_heap:
+            _, i, node = heapq.heappop(tmp_heap)
+
+            current.next = node
+            current = current.next
+
+            if current.next:
+                heapq.heappush(tmp_heap, (current.next.val, i, current.next))
