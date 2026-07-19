@@ -23,13 +23,13 @@ def func():
                 dp[i][j] = dp[i-1][j-1]
                 continue
 
-            tmp_0 = dp[i][j-1]
-            tmp_1 = dp[i-1][j]
-            tmp_2 = dp[i-1][j-1]
+            choices = (
+                dp[i][j-1],     # 删除 1 当前
+                dp[i-1][j],     # 插入 2 当前
+                dp[i-1][j-1]    # 替换 1 当前
+            )
 
-            # choices = (tmp_0, tmp_1, tmp_2)
-
-            dp[i][j] = min(tmp_0, tmp_1, tmp_2) + 1
+            dp[i][j] = min(choices) + 1
 
     print(dp[-1][-1])
 
@@ -43,7 +43,7 @@ def func_insert(str1: str, str2: str):
     dp[0] = len_str1
 
     0, 1, 2, 3, 4, 5
-    1, 
+    1,
     2
     3
     4
