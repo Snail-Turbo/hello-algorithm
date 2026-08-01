@@ -58,6 +58,65 @@ class Solution:
 
         return False
 
+    def exist_v1_(self, board: list[list[str]], word: str) -> bool:
+        y_len = len(board)
+        x_len = len(board[0])
+
+        visited = [[0] * x_len for _ in range(y_len)]
+
+        path = []
+
+        len_target = len(word)
+
+        direction = [[0, -1], [0, 1], [-1, 0], [1, 0]]
+
+        def backtrack(y, x, index):
+            if index == len_target:
+                return "".join(path) == word
+
+            for diff_y, diff_x in direction:
+                current_y, current_x = y + diff_y, x + diff_x
+
+                if (
+                    current_y < 0
+                    or current_y >= y_len
+                    or current_x < 0
+                    or current_x >= x_len
+                ):
+                    continue
+
+                if (
+                    visited[current_y][current_x]
+                    or board[current_y][current_x] != word[index]
+                ):
+                    continue
+
+                path.append(board[current_y][current_x])
+                visited[current_y][current_x] = 1
+
+                if backtrack(current_y, current_x, index + 1):
+                    return True
+
+                path.pop()
+                visited[current_y][current_x] = 0
+
+            return False
+
+        for y in range(y_len):
+            for x in range(x_len):
+                if board[y][x] == word[0]:
+
+                    path.append(board[y][x])
+                    visited[y][x] = 1
+
+                    if backtrack(y, x, 1):
+                        return True
+
+                    path.pop()
+                    visited[y][x] = 0
+
+        return False
+
     def exist_v2(self, board: list[list[str]], word: str) -> bool:
         y_len = len(board)
         x_len = len(board[0])
