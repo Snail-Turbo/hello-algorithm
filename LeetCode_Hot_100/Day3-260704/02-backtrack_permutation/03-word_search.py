@@ -12,7 +12,7 @@
 
 
 class Solution:
-    def exist(self, board: list[list[str]], word: str) -> bool:
+    def exist_v1(self, board: list[list[str]], word: str) -> bool:
         y_len = len(board)
         x_len = len(board[0])
 
