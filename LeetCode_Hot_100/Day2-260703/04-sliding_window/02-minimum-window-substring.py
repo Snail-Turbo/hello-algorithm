@@ -33,21 +33,21 @@ class Solution:
                 if current_window[char] == need_window[char]:
                     valid += 1
 
-            # 易错：思路是 如果右边满足了，就开始缩小左边才对
-            while valid == target_valid:  # 这里最极限 i 和 j 相等时，j-i+1=1，表示当前窗口只有一个字符，如果
+                # 易错：思路是 如果右边满足了，就开始缩小左边才对
+                while valid == target_valid:  # 这里最极限 i 和 j 相等时，j-i+1=1，表示当前窗口只有一个字符，如果
 
-                current_length = j-i+1
-                if current_length < min_length:
-                    min_length = current_length
-                    answer_start = i
+                    current_length = j-i+1
+                    if current_length < min_length:
+                        min_length = current_length
+                        answer_start = i
 
-                left_char = original_string[i]
-                if left_char in need_window:  # 那些不需要的，不用管，直接跳过
-                    current_window[left_char] -= 1
+                    left_char = original_string[i]
+                    if left_char in need_window:  # 那些不需要的，不用管，直接跳过
+                        current_window[left_char] -= 1
 
-                    if current_window[left_char] < need_window[left_char]:
-                        valid -= 1
+                        if current_window[left_char] < need_window[left_char]:
+                            valid -= 1
 
-                i += 1
+                    i += 1
 
         return "" if min_length == impossible_length else original_string[answer_start:answer_start+min_length]

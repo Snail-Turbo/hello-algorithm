@@ -42,6 +42,8 @@ class MinStack:
 
     def push(self, val: int) -> None:
         self.stack.append(val)
+
+        # 重复最小值也要进入 最小栈
         if not self.min_stack or val <= self.min_stack[-1]:  # <=的原因是为了处理重复的最小值情况
             self.min_stack.append(val)
 

@@ -29,3 +29,24 @@ class Solution:
         self.quick_sort(nums, left_idx=left_idx, right_idx=i-1)
 
         self.quick_sort(nums, left_idx=i+1, right_idx=right_idx)
+
+    def quick_sort(self, nums: list[int], left_idx: int, right_idx: int) -> None:
+        if left_idx >= right_idx:
+            return
+
+        pivot_idx = random.randint(left_idx, right_idx)
+        nums[pivot_idx], nums[right_idx] = nums[right_idx], nums[pivot_idx]
+
+        x = nums[right_idx]
+
+        slow = left_idx
+        for j in range(left_idx, right_idx):
+            if nums[j] <= x:
+                nums[slow], nums[j] = nums[j], nums[slow]
+
+                slow += 1
+
+        nums[slow], nums[right_idx] = nums[right_idx], nums[slow]
+
+        self.quick_sort(left_idx, slow-1)
+        self.quick_sort(slow+1, right_idx)

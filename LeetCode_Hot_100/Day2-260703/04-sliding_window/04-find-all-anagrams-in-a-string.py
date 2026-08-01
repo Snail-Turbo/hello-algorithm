@@ -31,26 +31,25 @@ s 和 p 仅包含小写字母
 # 2. 比较窗口内的字符频次与 p 的字符频次是否相同
 
 # 两个指针同向移动，维护一个连续区间，每次只变一头，另一头不用回头。
+
+
 class Solution:
     def findAnagrams(self, s: str, p: str) -> list[int]:
         n, target_length = len(s), len(p)
         if n < target_length:
             return []
-        
+
         target = [0] * 26
         for char in p:
             target[ord(char) - ord('a')] += 1
 
-
         window = [0] * 26
-        for i, char in enumerate(s[:target_length]): # 长度为 target_length 的窗口
+        for i, char in enumerate(s[:target_length]):  # 长度为 target_length 的窗口
             window[ord(char) - ord('a')] += 1
-
 
         answers_start_idxs = []
         if window == target:
-            answers_start_idxs.append(0) # i-target_length+1
-
+            answers_start_idxs.append(0)  # i-target_length+1
 
         for j in range(target_length, n):
             window[ord(s[j]) - ord('a')] += 1
@@ -58,7 +57,7 @@ class Solution:
 
             if window == target:
                 answers_start_idxs.append(j-target_length+1)
-        
+
         return answers_start_idxs
 
 
@@ -67,5 +66,3 @@ s = "abab"
 p = "ab"
 
 print(so.findAnagrams(s, p))
-        
-                

@@ -12,9 +12,11 @@ def two_sum(num_count, nums, target):
     for i, num in enumerate(nums):
         diff = target - num
 
+        # 判断当前是否前面已经有可以和他配对的
         if diff in num_to_index: # 核心思路：使用哈希表存储已经遍历过的数字及其索引，检查当前数字的差值是否存在于哈希表中
             return [num_to_index[diff], i]
         
+        # 记录当前
         num_to_index[num] = i
     
     return []

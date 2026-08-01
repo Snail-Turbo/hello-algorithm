@@ -13,17 +13,17 @@ class Solution:
         for i in range(1, n):
             mins[i] = min(mins[i-1], nums[i])
 
-        # 这里使用单调栈，栈中存储的是 nums 的索引，栈是单调递减的
+        # 单调栈（递减），存储的是候选 j 的索引
         index_stack = []
         for k in range(n):
+            # 弹出栈中 ≤ nums[k] 的元素，保证栈是单调递减的
             while index_stack and nums[index_stack[-1]] <= nums[k]:
                 index_stack.pop()
-                # 此时 stack 中剩下的是 nums[k] 左边 的比 nums[k] 大的元素的索引，且stack是单调递减的
 
-            # 10，7，5
-            # 若还有元素在栈中，说明 nums[k] 左边还有比 nums[k] 大的元素，且这些元素的索引都在 k 的左边
-            # index_stack[-1] 这里不能是 index_stack[-1]-1
-            # 因为 当 index_stack[-1] == 0 时，mins[-1] 在 Python 中是合法语法，但取到的是 数组最后一个元素，完全语义错误
+            # 若栈非空，栈顶是 nums[k] 左边第一个比它大的元素 → 候选的 nums[j]
+            # 检查该 j 之前的最小值（mins[栈顶]）是否 < nums[k]
+            # 注意：不能用 mins[k-1] 这包含了 最小值可能来自 j 和 k 之间的位置，
+            # 而 i 必须在 j 之前，所以只能查 mins[stack[-1]]（范围限定在 j 以内）
             if index_stack and mins[index_stack[-1]] < nums[k]:
                 return True
 

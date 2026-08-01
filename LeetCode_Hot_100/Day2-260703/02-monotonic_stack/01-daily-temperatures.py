@@ -6,7 +6,7 @@
 class Solution:
     def dailyTemperatures(self, temperatures: list) -> list:
         temperatures_length = len(temperatures)
-        stack = []
+        monotonic_stack = []
         answer = [0] * temperatures_length
 
         # 从右向左，单调递减栈
@@ -14,13 +14,13 @@ class Solution:
             # 单调递减栈，所以里面如果最上面的不是大于他的温度，就弹出
             #
             # 同时，栈内存储的是 index
-            while stack and temperatures[stack[-1]] <= temperatures[i]:
-                stack.pop()
+            while monotonic_stack and temperatures[monotonic_stack[-1]] <= temperatures[i]:
+                monotonic_stack.pop()
 
-            if stack:
-                answer[i] = stack[-1] - i  # 当前温度的索引与栈顶索引的差值就是需要等待的天数
+            if monotonic_stack:
+                answer[i] = monotonic_stack[-1] - i  # 当前温度的索引与栈顶索引的差值就是需要等待的天数
 
-            stack.append(i)
+            monotonic_stack.append(i)
 
         return answer
 

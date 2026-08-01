@@ -4,34 +4,34 @@
 请你设计并实现时间复杂度为O(n)的算法解决此问题。
 """
 
+
 def longest_consecutive_sequence(nums):
     if not nums:
         return 0
-    
-    num_set = set(nums) # 核心1：使用哈希集合存储数组中的所有元素，以便在O(1)时间内检查某个元素是否存在
+
+    num_set = set(nums)  # 核心1：使用哈希集合存储数组中的所有元素，以便在O(1)时间内检查某个元素是否存在
 
     longest_streak = 0
 
     for num in num_set:
-        if num - 1 in num_set: # 核心2： 如果当前数字的前一个数字存在于集合中，则跳过该数字，因为它不是连续序列的起点
-            continue
-        
-        current_num = num
-        current_streak = 1
+        # 只考虑处理每一个序列的起点，对于 num-1 in num_set 的 continue 跳过
+        if num - 1 not in num_set:  # 核心2： 如果当前数字的前一个数字存在于集合中，则跳过该数字，因为它不是连续序列的起点
 
-        while current_num + 1 in num_set: # 核心3： 如果当前数字的下一个数字存在于集合中，则继续向前查找连续序列
-            current_num += 1
-            current_streak += 1
-        
-        longest_streak = max(longest_streak, current_streak)
+            current_num = num
+            current_streak = 1
+
+            while current_num + 1 in num_set:  # 核心3： 如果当前数字的下一个数字存在于集合中，则继续向前查找连续序列
+                current_num += 1
+                current_streak += 1
+
+            longest_streak = max(longest_streak, current_streak)
 
     return longest_streak
-    
 
 
 if __name__ == "__main__":
     num_count = int(input())
     nums = list(map(int, input().split()))
-    
+
     result = longest_consecutive_sequence(nums)
     print(result)
