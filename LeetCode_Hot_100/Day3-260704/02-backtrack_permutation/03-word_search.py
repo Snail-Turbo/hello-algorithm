@@ -31,7 +31,7 @@ class Solution:
                 if new_y not in range(y_len) or new_x not in range(x_len):
                     continue
 
-                if used[new_y][new_x] or board[new_y][new_x] not in word[len(path)-1]:
+                if used[new_y][new_x] or board[new_y][new_x] not in word[len(path)]:
                     continue
 
                 path.append(board[new_y][new_x])
