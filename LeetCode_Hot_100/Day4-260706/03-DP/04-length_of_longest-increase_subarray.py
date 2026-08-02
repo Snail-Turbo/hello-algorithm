@@ -65,8 +65,8 @@ class Solution:
 
         for i in range(n):  # 先遍历 end_index
             for j in range(i):  # 然后遍历  j in range(end_index)
-                if nums[j] < nums[i] and dp[j]+1 > dp[i]:
-                    dp[i] = dp[j]+1
+                if nums[j] < nums[i]:
+                    dp[i] = max(dp[j]+1, dp[j]+1)
 
         ans = max(dp)
 
