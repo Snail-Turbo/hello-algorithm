@@ -10,7 +10,7 @@ class Solution:
 
         for i in range(1, len_coins + 1):
             for j in range(1, amount + 1):
-                dp[i][j] = min(dp[i-1][j], dp[i][j-coins[i-1]] + 1 if j-coins[i-1] >= 0 else max_impossible)
+                dp[i][j] = min(dp[i-1][j], dp[i][j-coins[i-1]] + 1 if j >= coins[i-1] else max_impossible)
 
         return dp[-1][-1] if dp[-1][-1] != max_impossible else -1
 

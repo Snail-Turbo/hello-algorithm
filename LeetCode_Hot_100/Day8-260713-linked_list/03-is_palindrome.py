@@ -60,12 +60,12 @@ class Solution:
         current = head
 
         while current:
-            next = current.next
+            save_next = current.next
             current.next = already  # 如果是奇数个，这里会是中间多的那个，这使得如果123，则2.next = None
 
             already = current
 
-            current = next
+            current = save_next
 
         return already
 

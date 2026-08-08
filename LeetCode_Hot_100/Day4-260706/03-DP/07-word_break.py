@@ -29,6 +29,7 @@ class Solution:
         for end in range(1, n + 1):
             for mid in range(end):  # 优化：mid 只需到 end，超过 end 切片为空无意义
                 if dp[mid] and s[mid:end] in word_set:
+                    # s[mid:end] 是 current
                     dp[end] = True
                     break  # 优化：找到一种拆分即可，无需继续：因为先遍历的end，然后遍历起点
 

@@ -14,7 +14,7 @@ class Solution:
                     q.append((y, x))
                     dist[y][x] = 0  # 进就标记 visited，多源BFS，源全为0时候
 
-        max_minutes = 0
+        min_minutes = 0
         head = 0
         while head < len(q):
             current_y, current_x = q[head]  # 只增不减的 queue，避免 O(n)
@@ -33,7 +33,7 @@ class Solution:
                 dist[new_y][new_x] = dist[current_y][current_x] + 1  # 进，就 visited，and 更新距离
 
                 # 顺便计算 max，避免多一个 for 循环
-                max_minutes = max(max_minutes, dist[new_y][new_x])
+                min_minutes = max(min_minutes, dist[new_y][new_x])
 
         # 若是还有 未 腐烂的，则 return -1
         for i in range(len_y):
@@ -41,7 +41,7 @@ class Solution:
                 if grid[i][j] == 1 and dist[i][j] == -1:
                     return -1
 
-        return max_minutes
+        return min_minutes
 
 
 grid = [[2, 1, 1], [0, 1, 1], [1, 0, 1]]

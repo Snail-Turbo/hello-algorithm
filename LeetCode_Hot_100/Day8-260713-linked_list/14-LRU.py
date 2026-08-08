@@ -13,7 +13,6 @@ class ListNode:
 
 class LRUCache:
     def __init__(self, capacity: int):
-
         self.capacity = capacity
         self.key_node_map = {}  # key, ListNode
 
@@ -64,8 +63,8 @@ class LRUCache:
                 del self.key_node_map[to_remove.key]
 
     def _add_after_head(self, target_node: ListNode):
-        target_node.next = self.head.next
         target_node.prev = self.head
+        target_node.next = self.head.next
 
         target_node.next.prev = target_node
         target_node.prev.next = target_node
@@ -78,9 +77,5 @@ class LRUCache:
         target_node.prev.next = target_node.next
         target_node.next.prev = target_node.prev
 
-        # 自己前变head，后接之前second
-        target_node.next = self.head.next
-        target_node.prev = self.head
-
-        target_node.next.prev = target_node
-        target_node.prev.next = target_node
+        # 剥离后，复用 _add_after_head 插到 head 后面（和 put 新增逻辑一致）
+        self._add_after_head(target_node)

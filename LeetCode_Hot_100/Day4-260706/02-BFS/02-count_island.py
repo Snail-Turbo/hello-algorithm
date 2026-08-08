@@ -1,3 +1,4 @@
+from collections import deque
 
 
 class Solution:
@@ -39,6 +40,26 @@ class Solution:
                     bfs(y, x)
 
         return count
+
+    def bfs(grid, sy, sx):
+        rows, cols = len(grid), len(grid[0])
+        visited = [[False] * cols for _ in range(rows)]
+        visited[sy][sx] = True
+        q = deque([(sy, sx)])
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+
+        steps = 0
+        while q:
+            for _ in range(len(q)):          # 按"层"处理 → 天然统计步数
+                y, x = q.popleft()
+                for dy, dx in directions:
+                    ny, nx = y + dy, x + dx
+                    if (0 <= ny < rows and 0 <= nx < cols
+                            and not visited[ny][nx] and grid[ny][nx] != 0):
+                        visited[ny][nx] = True   # 进队即标记
+                        q.append((ny, nx))
+            steps += 1
+        return steps
 
 
 so = Solution()

@@ -12,8 +12,6 @@
 class Solution:
     def numSquares(self, n: int) -> int:
 
-        min_count = 999
-
         dp = [0] * n
 
         # 0 1 2 3 4 5 6
